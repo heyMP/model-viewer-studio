@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "@google/model-viewer": "./@google/model-viewer.js",
+    "lit-element": "./lit-element.js",
+    "three": "./three.js"
+  }
+}
