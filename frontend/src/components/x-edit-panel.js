@@ -70,7 +70,7 @@ class XEditPanel extends MobxLitElement {
               />
             </div>
 
-            <button @click=${store.saveTemporaryHotspot()}>Save</button>
+            <button @click=${() => store.saveTemporaryHotspot()}>Save</button>
           `
         : html``}
     `;

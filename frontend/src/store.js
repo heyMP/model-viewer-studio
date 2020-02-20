@@ -6,13 +6,20 @@ import {
   autorun
 } from "../web_modules/mobx.js";
 
-const defaultHotspot = Object.assign({ id: "", position: "", normal: "", annotation: "",reference: null, new: true });
+const defaultHotspot = Object.assign({
+  id: "",
+  position: "",
+  normal: "",
+  annotation: "",
+  reference: null,
+  new: true
+});
 
 class Store {
   constructor() {
     this.modelViewer = null;
 
-    this.editing = true;
+    this.editing = false;
 
     this.activeHotspot = defaultHotspot;
     this.temporaryHotspot = defaultHotspot;
@@ -43,7 +50,7 @@ class Store {
   }
 
   updateTemporaryHotspot(position) {
-    const slotName = `hotspot-${generateUuid()}`
+    const slotName = `hotspot-${generateUuid()}`;
     let hotspot = `
       <button
         slot="${slotName}"
@@ -53,7 +60,7 @@ class Store {
       >
     `;
     this.modelViewer.insertAdjacentHTML("beforeend", hotspot);
-    const node = this.modelViewer.querySelector(`[slot="${slotName}"]`)
+    const node = this.modelViewer.querySelector(`[slot="${slotName}"]`);
     // remove the old hotspot from DOM
     if (this.temporaryHotspot.reference) {
       this.temporaryHotspot.reference.remove();
@@ -66,6 +73,13 @@ class Store {
   }
 
   saveTemporaryHotspot() {
+    if (store.temporaryHotspot.reference) {
+      alert(`
+      Add this hotspot to your model:
+${store.temporaryHotspot.reference.outerHTML}
+      `)
+      this.editing = false;
+    }
   }
 
   get hotspotIsNew() {
@@ -106,19 +120,20 @@ autorun(() => {
   if (store.temporaryHotspot.reference) {
     if (store.temporaryHotspot.annotation) {
       // get the current state of the annotation you
-      const currentAnnotation = store.temporaryHotspot.reference.querySelector("*");
+      const currentAnnotation = store.temporaryHotspot.reference.querySelector(
+        "*"
+      );
       if (!currentAnnotation) {
         let element = document.createElement("div");
         element.id = "annotation";
         element.innerHTML = store.temporaryHotspot.annotation;
         store.temporaryHotspot.reference.appendChild(element);
-      }
-      else {
+      } else {
         currentAnnotation.innerHTML = store.temporaryHotspot.annotation;
       }
     }
   }
-})
+});
 
 const generateUuid = () => {
   return "xxxxxxxx".replace(/[xy]/g, function(c) {
@@ -126,4 +141,4 @@ const generateUuid = () => {
       v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
-}
+};
