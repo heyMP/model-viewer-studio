@@ -11,6 +11,6 @@
     "three": "^0.113.2"
   },
   "scripts": {
-    "": "surge -d model-viewer.studio.heymp"
+    "deploy": "surge -d model-viewer-studio.heymp.surge.sh"
   }
 }
