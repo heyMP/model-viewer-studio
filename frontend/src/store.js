@@ -6,19 +6,17 @@ import {
   autorun
 } from "../web_modules/mobx.js";
 
+const defaultHotspot = Object.assign({ id: "", position: "", normal: "", annotation: "",reference: null, new: true });
+
 class Store {
   constructor() {
     this.modelViewer = null;
 
     this.editing = true;
 
-    this.activeHotspot = Object.assign(
-      {},
-      { id: "", position: "", normal: "", reference: null, new: true }
-    );
-    this.temporaryHotspot = {};
+    this.activeHotspot = defaultHotspot;
+    this.temporaryHotspot = defaultHotspot;
     this.hotspotEditing = false;
-    this.temporaryHotspot = null;
   }
 
   startEditing() {
@@ -57,18 +55,17 @@ class Store {
     this.modelViewer.insertAdjacentHTML("beforeend", hotspot);
     const node = this.modelViewer.querySelector(`[slot="${slotName}"]`)
     // remove the old hotspot from DOM
-    if (this.temporaryHotspot) {
-      this.temporaryHotspot.remove();
+    if (this.temporaryHotspot.reference) {
+      this.temporaryHotspot.reference.remove();
     }
     // store this as a temporary hotspot
-    this.temporaryHotspot = node;
+    this.temporaryHotspot.reference = node;
+    this.temporaryHotspot.position = position.position;
+    this.temporaryHotspot.normal = position.normal;
     // insert the hotspot into the DOM
-    this.modelViewer.insertAdjacentHTML("beforeend", node);
   }
 
   saveTemporaryHotspot() {
-    // remove temporary hotspot
-    this.temporaryHotspot.remove();
   }
 
   get hotspotIsNew() {
@@ -100,6 +97,28 @@ decorate(Store, {
 });
 
 export const store = new Store();
+
+autorun(() => {
+  if (store.temporaryHotspot.reference && store.temporaryHotspot.id) {
+    // update id
+    store.temporaryHotspot.reference.id = store.temporaryHotspot.id;
+  }
+  if (store.temporaryHotspot.reference) {
+    if (store.temporaryHotspot.annotation) {
+      // get the current state of the annotation you
+      const currentAnnotation = store.temporaryHotspot.reference.querySelector("*");
+      if (!currentAnnotation) {
+        let element = document.createElement("div");
+        element.id = "annotation";
+        element.innerHTML = store.temporaryHotspot.annotation;
+        store.temporaryHotspot.reference.appendChild(element);
+      }
+      else {
+        currentAnnotation.innerHTML = store.temporaryHotspot.annotation;
+      }
+    }
+  }
+})
 
 const generateUuid = () => {
   return "xxxxxxxx".replace(/[xy]/g, function(c) {

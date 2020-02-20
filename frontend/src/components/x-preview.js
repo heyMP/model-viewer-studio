@@ -49,7 +49,7 @@ class XPreview extends MobxLitElement {
   __handleClick(event) {
     const target = event.target;
     // see if we should
-    if (!store.hotspotEditing) {
+    if (!store.editing) {
       return;
     }
     // get position
@@ -58,22 +58,6 @@ class XPreview extends MobxLitElement {
     if (position) {
       store.updateTemporaryHotspot(position)
     }
-  }
-
-  __addHotSpot(target, position) {
-    const slotName = `hotspot-${this.__generateUuid()}`
-    let hotspot = `
-      <button
-        slot="${slotName}"
-        data-position="${position.position.toString()}"
-        data-normal="${position.normal.toString()}"
-        data-visibility-attribute="visible"
-      >
-    `;
-    target.insertAdjacentHTML("beforeend", hotspot);
-    // store this as a temporary hotspot
-    const node = target.querySelector(`[slot="${slotName}"]`)
-    store.updateHotspotPositions(node)
   }
 
   __getPositionAndNormal(event) {

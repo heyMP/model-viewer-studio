@@ -24,48 +24,55 @@ class XEditPanel extends MobxLitElement {
 
   render() {
     return html`
+      ${store.editing && store.temporaryHotspot !== null
+        ? html`
+            <div class="input-field">
+              <label for="id">ID:</label>
+              <input
+                name="id"
+                .value=${store.temporaryHotspot.id}
+                @keypress=${e => {
+                  store.temporaryHotspot.id = e.target.value;
+                }}
+              />
+            </div>
 
-      <div class="input-field">
-        <label for="id">ID:</label>
-        <input
-          name="id"
-          .value=${store.activeHotspot.id}
-          @keypress=${e => {
-            store.activeHotspot.id = e.target.value;
-          }}
-        />
-      </div>
+            <div class="input-field">
+              <label for="position">position:</label>
+              <input
+                name="position"
+                .value=${store.temporaryHotspot.position}
+                @keypress=${e => {
+                  store.temporaryHotspot.position = e.target.value;
+                }}
+              />
+            </div>
 
-      <div class="input-field">
-        <label for="position">position:</label>
-        <input
-          name="position"
-          .value=${store.activeHotspot.position}
-          @keypress=${e => {
-            store.activeHotspot.position = e.target.value;
-          }}
-        />
-      </div>
+            <div class="input-field">
+              <label for="normal">normal:</label>
+              <input
+                name="normal"
+                .value=${store.temporaryHotspot.normal}
+                @keypress=${e => {
+                  store.temporaryHotspot.normal = e.target.value;
+                }}
+              />
+            </div>
 
-      <div class="input-field">
-        <label for="normal">normal:</label>
-        <input
-          name="normal"
-          .value=${store.activeHotspot.normal}
-          @keypress=${e => {
-            store.activeHotspot.normal = e.target.value;
-          }}
-        />
-      </div>
+            <div class="input-field">
+              <label for="annotation">annotation:</label>
+              <input
+                name="annotation"
+                .value=${store.temporaryHotspot.annotation}
+                @keypress=${e => {
+                  store.temporaryHotspot.annotation = e.target.value;
+                }}
+              />
+            </div>
 
-      ${store.hotspotEditing ? html`
-        <button>Save Hotspot Change</button>
-        <button>Reset Hotspot Change</button>
-      ` : html`
-        <button @click=${() => store.startHotspotEditing()}>Edit Hotspot</button>
-      `}
-
-      ${JSON.stringify(store.activeHotspot)}
+            <button @click=${store.saveTemporaryHotspot()}>Save</button>
+          `
+        : html``}
     `;
   }
 }
