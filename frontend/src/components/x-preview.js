@@ -2,8 +2,10 @@
 import { LitElement, html, css } from "../../web_modules/lit-element.js";
 import "../../web_modules/@google/model-viewer.js";
 import "./x-model-hotspot.js";
+import { MobxLitElement } from "../../web_modules/@adobe/lit-mobx.js";
+import { store } from "../store.js";
 
-class XPreview extends LitElement {
+class XPreview extends MobxLitElement {
   static get properties() {
     return {
       src: { type: String }
@@ -33,11 +35,12 @@ class XPreview extends LitElement {
 
   firstUpdated() {
     const slot = this.shadowRoot.querySelector("slot");
-    slot.addEventListener('slotchange',  e => {
+    slot.addEventListener("slotchange", e => {
       let nodes = slot.assignedNodes();
       for (const node of nodes) {
         if (node.nodeName === "MODEL-VIEWER") {
-          node.addEventListener("click", this.__handleClick.bind(this))
+          store.modelViewer = node
+          node.addEventListener("click", this.__handleClick.bind(this));
         }
       }
     });
@@ -45,25 +48,32 @@ class XPreview extends LitElement {
 
   __handleClick(event) {
     const target = event.target;
-    // see if we should 
+    // see if we should
+    if (!store.hotspotEditing) {
+      return;
+    }
     // get position
     const position = this.__getPositionAndNormal(event);
     // add hotspot
-    if (position)  {
-      this.__addHotSpot(target, position);
+    if (position) {
+      store.updateTemporaryHotspot(position)
     }
   }
 
   __addHotSpot(target, position) {
+    const slotName = `hotspot-${this.__generateUuid()}`
     let hotspot = `
       <button
-        slot="hotspot-${this.__generateUuid()}"
+        slot="${slotName}"
         data-position="${position.position.toString()}"
         data-normal="${position.normal.toString()}"
         data-visibility-attribute="visible"
       >
-    `
+    `;
     target.insertAdjacentHTML("beforeend", hotspot);
+    // store this as a temporary hotspot
+    const node = target.querySelector(`[slot="${slotName}"]`)
+    store.updateHotspotPositions(node)
   }
 
   __getPositionAndNormal(event) {
@@ -86,8 +96,9 @@ class XPreview extends LitElement {
   }
 
   __generateUuid() {
-    return 'xxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return "xxxxxxxx".replace(/[xy]/g, function(c) {
+      var r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   }
