@@ -14,20 +14,19 @@ const generateUuid = () => {
   });
 };
 
-const deconstructHotspotElement = (node) => {
+const deconstructHotspotElement = node => {
   const id = node.getAttribute("slot");
   const position = node.dataset.position;
   const normal = node.dataset.normal;
   const reference = node;
   let annotationNode = node.querySelector("*");
   const annotation = annotationNode ? annotationNode.innerText : "";
-  return { id, position, normal, reference, annotation }
-}
+  return { id, position, normal, reference, annotation };
+};
 
 class Hotspot {
-  constructor() {
-  }
-};
+  constructor() {}
+}
 const newHostspot = () => {
   return {
     id: `hotspot-${generateUuid()}`,
@@ -36,18 +35,24 @@ const newHostspot = () => {
     annotation: "",
     reference: null,
     new: true
-  }
-}
+  };
+};
 
 class Store {
   constructor() {
     this.modelViewer = null;
-
     this.editing = false;
     this.saving = true;
-
+    this.connected = false;
     this.temporaryHotspot = newHostspot();
     this.hotspotEditing = false;
+    this.connect();
+  }
+
+  connect() {
+    fetch("http://localhost:3000/ping").then(res => {
+      this.connected = true;
+    });
   }
 
   startEditing() {
@@ -62,13 +67,13 @@ class Store {
     this.saving = true;
     // take snapshot of entire model and save it.
     const snapshot = this.modelViewer.outerHTML;
-    console.log('snapshot:', snapshot)
-    fetch('http://localhost:3000/save', {
+    fetch("http://localhost:3000/save", {
       method: "POST",
       body: snapshot
+    }).then(res => {
+      this.editing = false;
+      this.saving = false;
     });
-    this.editing = false;
-    this.saving = false;
   }
 
   startHotspotEditing() {
@@ -84,7 +89,9 @@ class Store {
 
   deleteHotspot() {
     if (this.temporaryHotspot.reference) {
-      const confirmed = confirm(`Are you sure you want to delete ${this.temporaryHotspot.id}?`)
+      const confirmed = confirm(
+        `Are you sure you want to delete ${this.temporaryHotspot.id}?`
+      );
       if (confirmed) {
         this.temporaryHotspot.reference.remove();
         this.temporaryHotspot = null;
@@ -146,6 +153,7 @@ decorate(Store, {
 
   editing: observable,
   saving: observable,
+  connected: observable,
 
   startEditing: action,
   stopEditing: action,
@@ -166,7 +174,11 @@ decorate(Store, {
 export const store = new Store();
 
 autorun(() => {
-  if (store.temporaryHotspot && store.temporaryHotspot.reference && store.temporaryHotspot.id) {
+  if (
+    store.temporaryHotspot &&
+    store.temporaryHotspot.reference &&
+    store.temporaryHotspot.id
+  ) {
     // update id
     store.temporaryHotspot.reference.id = store.temporaryHotspot.id;
   }

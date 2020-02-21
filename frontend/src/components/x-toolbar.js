@@ -32,14 +32,32 @@ class XToolbar extends MobxLitElement {
 
   renderEditingButtons() {
     return html`
-      ${store.editing
+      ${store.connected
         ? html`
-            <button title="Save Hotspots" @click=${() => store.save()}>Save</button>
-            <button title="Cancel editing process" @click=${() => store.stopEditing()}>Cancel</button>
+            ${store.editing
+              ? html`
+                  <button title="Save Hotspots" @click=${() => store.save()}>
+                    Save
+                  </button>
+                  <button
+                    title="Cancel editing process"
+                    @click=${() => store.stopEditing()}
+                  >
+                    Cancel
+                  </button>
+                `
+              : html`
+                  <button
+                    title="Start editing"
+                    @click=${() => store.startEditing()}
+                  >
+                    Edit Hotspots
+                  </button>
+                `}
           `
         : html`
-          <button title="Start editing" @click=${() => store.startEditing()}>Edit Hotspots</button>
-        `}
+            Connecting...
+          `}
     `;
   }
 

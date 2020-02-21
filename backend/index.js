@@ -4,9 +4,15 @@ const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
+const cors = require("cors");
 const port = 3000;
 
+app.use(cors());
 app.use(bodyParser.text({ type: "*/*" }));
+
+app.get('/ping', (req, res) => {
+  res.send('ok');
+})
 
 app.post('/save', (req, res) => {
   console.log('req:', req.body)
