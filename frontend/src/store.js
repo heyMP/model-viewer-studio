@@ -20,7 +20,7 @@ const deconstructHotspotElement = (node) => {
   const normal = node.dataset.normal;
   const reference = node;
   let annotationNode = node.querySelector("*");
-  annotation = annotationNode ? annotationNode.innerText : "";
+  const annotation = annotationNode ? annotationNode.innerText : "";
   return { id, position, normal, reference, annotation }
 }
 

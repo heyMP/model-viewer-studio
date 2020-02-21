@@ -32,7 +32,7 @@ class XEditPanel extends MobxLitElement {
               <input
                 name="id"
                 .value=${store.temporaryHotspot.id}
-                @keypress=${e => {
+                @input=${e => {
                   store.temporaryHotspot.id = e.target.value;
                 }}
               />
@@ -43,7 +43,7 @@ class XEditPanel extends MobxLitElement {
               <input
                 name="position"
                 .value=${store.temporaryHotspot.position}
-                @keypress=${e => {
+                @input=${e => {
                   store.temporaryHotspot.position = e.target.value;
                 }}
               />
@@ -54,7 +54,7 @@ class XEditPanel extends MobxLitElement {
               <input
                 name="normal"
                 .value=${store.temporaryHotspot.normal}
-                @keypress=${e => {
+                @input=${e => {
                   store.temporaryHotspot.normal = e.target.value;
                 }}
               />
@@ -65,7 +65,7 @@ class XEditPanel extends MobxLitElement {
               <input
                 name="annotation"
                 .value=${store.temporaryHotspot.annotation}
-                @keypress=${e => {
+                @input=${e => {
                   store.temporaryHotspot.annotation = e.target.value;
                 }}
               />
