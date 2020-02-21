@@ -73,7 +73,7 @@ class XEditPanel extends MobxLitElement {
           `
         : html``}
 
-      <button .disabled=${!editing} @click=${() => store.saveTemporaryHotspot()}>Save</button>
+      <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
       <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
       <button @click=${() => store.stopEditing()}>Cancel</button>
     `;

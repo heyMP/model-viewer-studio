@@ -44,6 +44,7 @@ class Store {
     this.modelViewer = null;
 
     this.editing = false;
+    this.saving = true;
 
     this.temporaryHotspot = newHostspot();
     this.hotspotEditing = false;
@@ -58,7 +59,16 @@ class Store {
   }
 
   save() {
+    this.saving = true;
+    // take snapshot of entire model and save it.
+    const snapshot = this.modelViewer.outerHTML;
+    console.log('snapshot:', snapshot)
+    fetch('http://localhost:3000/save', {
+      method: "POST",
+      body: snapshot
+    });
     this.editing = false;
+    this.saving = false;
   }
 
   startHotspotEditing() {
@@ -117,10 +127,6 @@ class Store {
 
   saveTemporaryHotspot() {
     if (store.temporaryHotspot.reference) {
-      alert(`
-      Add this hotspot to your model:
-${store.temporaryHotspot.reference.outerHTML}
-      `)
       this.editing = false;
     }
   }
@@ -139,6 +145,8 @@ decorate(Store, {
   modelViewer: observable,
 
   editing: observable,
+  saving: observable,
+
   startEditing: action,
   stopEditing: action,
   save: action,
