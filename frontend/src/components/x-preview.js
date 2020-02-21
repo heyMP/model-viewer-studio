@@ -63,7 +63,10 @@ class XPreview extends MobxLitElement {
     else {
       // if we clicked on a hotspot then set that as active hotspot
       // we first need to find the slot element which is the highest element of the hotspot
-      console.log(event.target);
+      const hotspot = event.target.closest(`[slot]`)
+      if (hotspot) {
+        store.editHotspot(hotspot);
+      }
     }
   }
 

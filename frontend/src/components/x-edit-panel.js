@@ -23,8 +23,9 @@ class XEditPanel extends MobxLitElement {
   }
 
   render() {
+    const editing = store.editing && store.temporaryHotspot !== null;
     return html`
-      ${store.editing && store.temporaryHotspot !== null
+      ${editing
         ? html`
             <div class="input-field">
               <label for="id">ID:</label>
@@ -69,10 +70,12 @@ class XEditPanel extends MobxLitElement {
                 }}
               />
             </div>
-
-            <button @click=${() => store.saveTemporaryHotspot()}>Save</button>
           `
         : html``}
+
+      <button .disabled=${!editing} @click=${() => store.saveTemporaryHotspot()}>Save</button>
+      <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
+      <button @click=${() => store.stopEditing()}>Cancel</button>
     `;
   }
 }

@@ -14,6 +14,16 @@ const generateUuid = () => {
   });
 };
 
+const deconstructHotspotElement = (node) => {
+  const id = node.getAttribute("slot");
+  const position = node.dataset.position;
+  const normal = node.dataset.normal;
+  const reference = node;
+  let annotationNode = node.querySelector("*");
+  annotation = annotationNode ? annotationNode.innerText : "";
+  return { id, position, normal, reference, annotation }
+}
+
 class Hotspot {
   constructor() {
   }
@@ -56,6 +66,22 @@ class Store {
     // create a new temporary hotspot to edit.
   }
 
+  editHotspot(node) {
+    // get current information
+    this.editing = true;
+    this.temporaryHotspot = deconstructHotspotElement(node);
+  }
+
+  deleteHotspot() {
+    if (this.temporaryHotspot.reference) {
+      const confirmed = confirm(`Are you sure you want to delete ${this.temporaryHotspot.id}?`)
+      if (confirmed) {
+        this.temporaryHotspot.reference.remove();
+        this.temporaryHotspot = null;
+      }
+    }
+  }
+
   updateHotspotPositions({ position, normal }) {
     this.hotspotEditing = false;
     this.activeHotspot.position = position;
@@ -63,6 +89,10 @@ class Store {
   }
 
   updateTemporaryHotspot(position) {
+    // make sure we have a temporaryHotspot to work with
+    if (store.temporaryHotspot === null) {
+      store.temporaryHotspot = newHostspot();
+    }
     const slotName = `hotspot-${generateUuid()}`;
     let hotspot = `
       <button
@@ -118,7 +148,9 @@ decorate(Store, {
   hotspotIsNew: computed,
   startHotspotEditing: action,
   temporaryHotspot: observable,
-  saveTemporaryHotspot: action
+  saveTemporaryHotspot: action,
+  deleteHotspot: action,
+  editHotspot: action
 
   // complete: computed
 });
@@ -126,11 +158,11 @@ decorate(Store, {
 export const store = new Store();
 
 autorun(() => {
-  if (store.temporaryHotspot.reference && store.temporaryHotspot.id) {
+  if (store.temporaryHotspot && store.temporaryHotspot.reference && store.temporaryHotspot.id) {
     // update id
     store.temporaryHotspot.reference.id = store.temporaryHotspot.id;
   }
-  if (store.temporaryHotspot.reference) {
+  if (store.temporaryHotspot && store.temporaryHotspot.reference) {
     if (store.temporaryHotspot.annotation) {
       // get the current state of the annotation you
       const currentAnnotation = store.temporaryHotspot.reference.querySelector(

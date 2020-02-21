@@ -38,10 +38,19 @@
       [data-visible] #annotation {
         opacity: 1;
       }
+
+      x-toolbar {
+        position: absolute;
+        z-index: 50;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
-    <h1>Model Viewer Studio</h1>
     <x-toolbar></x-toolbar>
     <x-panel></x-panel>
     <x-preview style="height:100vh;">
