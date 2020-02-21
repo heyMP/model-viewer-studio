@@ -6,14 +6,28 @@ import {
   autorun
 } from "../web_modules/mobx.js";
 
-const defaultHotspot = Object.assign({
-  id: "",
-  position: "",
-  normal: "",
-  annotation: "",
-  reference: null,
-  new: true
-});
+const generateUuid = () => {
+  return "xxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
+class Hotspot {
+  constructor() {
+  }
+};
+const newHostspot = () => {
+  return {
+    id: `hotspot-${generateUuid()}`,
+    position: "",
+    normal: "",
+    annotation: "",
+    reference: null,
+    new: true
+  }
+}
 
 class Store {
   constructor() {
@@ -21,8 +35,7 @@ class Store {
 
     this.editing = false;
 
-    this.activeHotspot = defaultHotspot;
-    this.temporaryHotspot = defaultHotspot;
+    this.temporaryHotspot = newHostspot();
     this.hotspotEditing = false;
   }
 
@@ -67,8 +80,8 @@ class Store {
     }
     // store this as a temporary hotspot
     this.temporaryHotspot.reference = node;
-    this.temporaryHotspot.position = position.position;
-    this.temporaryHotspot.normal = position.normal;
+    this.temporaryHotspot.position = `${position.position.x} ${position.position.y} ${position.position.z}`;
+    this.temporaryHotspot.normal = `${position.normal.x} ${position.normal.y} ${position.normal.z}`;
     // insert the hotspot into the DOM
   }
 
@@ -134,11 +147,3 @@ autorun(() => {
     }
   }
 });
-
-const generateUuid = () => {
-  return "xxxxxxxx".replace(/[xy]/g, function(c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};

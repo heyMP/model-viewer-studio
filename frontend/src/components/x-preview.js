@@ -39,7 +39,7 @@ class XPreview extends MobxLitElement {
       let nodes = slot.assignedNodes();
       for (const node of nodes) {
         if (node.nodeName === "MODEL-VIEWER") {
-          store.modelViewer = node
+          store.modelViewer = node;
           node.addEventListener("click", this.__handleClick.bind(this));
         }
       }
@@ -47,16 +47,23 @@ class XPreview extends MobxLitElement {
   }
 
   __handleClick(event) {
-    const target = event.target;
     // see if we should
     if (!store.editing) {
       return;
     }
-    // get position
-    const position = this.__getPositionAndNormal(event);
-    // add hotspot
-    if (position) {
-      store.updateTemporaryHotspot(position)
+    // if we clicked on a model then add a hotspot
+    if (event.target.nodeName === "MODEL-VIEWER") {
+      // get position
+      const position = this.__getPositionAndNormal(event);
+      // add hotspot
+      if (position) {
+        store.updateTemporaryHotspot(position)
+      }
+    }
+    else {
+      // if we clicked on a hotspot then set that as active hotspot
+      // we first need to find the slot element which is the highest element of the hotspot
+      console.log(event.target);
     }
   }
 
