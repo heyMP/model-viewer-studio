@@ -25,8 +25,8 @@ module.exports = ({ target, port = 3000 }) => {
   }
   console.log("Setting the following as static assets: ", staticAssetsIdentified);
 
-  app.use("/src", express.static("templates/frontend/src"));
-  app.use("/web_modules", express.static("templates/frontend/web_modules"));
+  app.use("/src", express.static(path.join(__dirname, "./templates/frontend/src")));
+  app.use("/web_modules", express.static(path.join(__dirname, "./templates/frontend/web_modules")));
 
   app.get("/", (req, res) => {
     const file = fs.readFileSync(path.join(TARGET), "utf8");

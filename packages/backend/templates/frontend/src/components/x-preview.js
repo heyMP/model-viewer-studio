@@ -22,7 +22,6 @@ class XPreview extends MobxLitElement {
         width: 100%;
         height: 100%;
         position: relative;
-        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
       }
       /* This keeps child nodes hidden while the element loads */
       :not(:defined) > * {
