@@ -1,8 +1,8 @@
 {
   "name": "packages",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "workspaces": {
     "packages": "packages/*"
