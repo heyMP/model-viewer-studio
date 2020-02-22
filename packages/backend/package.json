@@ -1,10 +1,10 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "model-viewer-studio",
+  "version": "0.0.1",
+  "main": "./bin/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon ./bin/index.js ../../demo/model1.html"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "bin": {
+    "mvstudio": "./bin/index.js"
   }
 }

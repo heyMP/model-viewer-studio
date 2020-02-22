@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      button {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: none;
+        background-color: white;
+        box-sizing: border-box;
+        box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1),
+          -2px -2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #annotation {
+        background-color: white;
+        position: absolute;
+        transform: translate(50%, -50%);
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2),
+          -2px -2px 5px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        opacity: 0;
+      }
+
+      [data-visible] #annotation {
+        opacity: 1;
+      }
+
+      x-toolbar {
+        position: absolute;
+        z-index: 50;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <x-toolbar></x-toolbar>
+    <x-panel></x-panel>
+    <x-preview style="height:100vh;"></x-preview>
+
+    <script src="src/index.js" type="module"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+  
+
+</body></html>

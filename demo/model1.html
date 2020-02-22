@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      button {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: none;
+        background-color: white;
+        box-sizing: border-box;
+        box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1),
+          -2px -2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #annotation {
+        background-color: white;
+        position: absolute;
+        transform: translate(50%, -50%);
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2),
+          -2px -2px 5px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        opacity: 0;
+      }
+
+      [data-visible] #annotation {
+        opacity: 1;
+      }
+
+      x-toolbar {
+        position: absolute;
+        z-index: 50;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <model-viewer src="assets/Fibula.gltf" auto-rotate camera-controls> <button slot="hotspot-ecd30c98" data-position="12.992927472874001m -0.2944631701557413m -21.76605806142331m" data-normal="0.8681526272329876m -0.2417017462921381m 0.4334642601254046m" data-visibility-attribute="visible" id="hotspot-bone-1" data-visible>
+        <div id="annotation">Bone 1</div>
+      </button>
+      <button slot="hotspot-60428993" data-position="-14.244154601649967m 33.568485430104595m 38.282210507121334m" data-normal="-0.29544386966403413m 0.22226493110639048m 0.9291453910968683m" data-visibility-attribute="visible" id="hotspot-60428993" data-visible>
+        <div id="annotation">Bone head 1</div>
+      </button>
+      <button slot="hotspot-9483eac7" data-position="0.024871746801174766m 18.212372811646375m 10.910464207232055m" data-normal="0.3503607248313082m -0.6161737756631358m 0.7053915087573172m" data-visibility-attribute="visible" id="hotspot-0449365d" data-visible>
+        <div id="annotation">asdfasdf</div>
+      </button>
+      <button slot="hotspot-53006b53" data-position="32.661850142817784m -25.98960340367379m -63.74481288706819m" data-normal="0.15262612466669911m -0.756110443882878m 0.6363978282945925m" data-visibility-attribute="visible" id="hotspot-30941551" data-visible>
+        <div id="annotation">asdfasdf</div>
+      </button>
+      <button slot="hotspot-5b6aa01c" data-position="-19.797705664089847m 43.45687113331958m 33.01129268762391m" data-normal="-0.8337583485636895m 0.3951935133852726m 0.38557629894693657m" data-visibility-attribute="visible" id="hotspot-5b6aa01c" data-visible>
+        <div id="annotation">asdfasdf</div>
+      </button>
+      
+      <button slot="hotspot-a04f5acd" data-position="62.113405647062095m -101.27675623295374m -149.98387482007925m" data-normal="-0.271954937786397m -0.4514062364776418m 0.8498663766079062m" data-visibility-attribute="visible" id="hotspot-bee982af" data-visible>
+    </button>
+      <button slot="hotspot-4a266ec1" data-position="48.317963745877705m -53.350497422963315m -102.38399830884404m" data-normal="0.8816233620423406m -0.24252149993928698m 0.40487473904926646m" data-visibility-attribute="visible" id="hotspot-714a32fc">
+    <div id="annotation">asdfas df</div></button></model-viewer>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/lib/model-viewer.js?module"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+  
+
+</body></html>

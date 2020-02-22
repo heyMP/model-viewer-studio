@@ -1,7 +1,5 @@
 // @ts-check
 import { LitElement, html, css } from "../../web_modules/lit-element.js";
-import "../../web_modules/@google/model-viewer.js";
-import "./x-model-hotspot.js";
 import { MobxLitElement } from "../../web_modules/@adobe/lit-mobx.js";
 import { store } from "../store.js";
 
