@@ -4,7 +4,7 @@
   "main": "./bin/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./bin/index.js ../../demo/model1.html"
+    "dev": "nodemon ./bin/index.js ../../demo/index.html"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",

@@ -44,7 +44,7 @@ class Store {
     this.editing = false;
     this.saving = true;
     this.connected = false;
-    this.temporaryHotspot = newHostspot();
+    this.temporaryHotspot = null;
     this.hotspotEditing = false;
     this.connect();
   }
@@ -61,6 +61,7 @@ class Store {
 
   stopEditing() {
     this.editing = false;
+    this.temporaryHotspot = null;
   }
 
   save() {

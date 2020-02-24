@@ -37,10 +37,23 @@ class XPreview extends MobxLitElement {
       for (const node of nodes) {
         if (node.nodeName === "MODEL-VIEWER") {
           store.modelViewer = node;
-          node.addEventListener("click", this.__handleClick.bind(this));
+          store.modelViewer.addEventListener("click", this.__handleClick.bind(this));
+          store.modelViewer.addEventListener("focus", this.__focusHotspot.bind(this), true);
         }
       }
     });
+  }
+
+  __focusHotspot(event) {
+    if (!store.editing) {
+      return;
+    }
+    else {
+      const hotspot = event.target.closest(`[slot]`)
+      if (hotspot) {
+        store.editHotspot(hotspot);
+      }
+    }
   }
 
   __handleClick(event) {
@@ -54,7 +67,7 @@ class XPreview extends MobxLitElement {
       const position = this.__getPositionAndNormal(event);
       // add hotspot
       if (position) {
-        store.updateTemporaryHotspot(position)
+        store.updateTemporaryHotspot(position);
       }
     }
     else {
@@ -80,18 +93,24 @@ class XPreview extends MobxLitElement {
     return positionAndNormal;
   }
 
-  render() {
-    return html`
-      <slot></slot>
-    `;
-  }
-
   __generateUuid() {
     return "xxxxxxxx".replace(/[xy]/g, function(c) {
       var r = (Math.random() * 16) | 0,
         v = c == "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
+  }
+
+  disconnectedCallback() {
+    store.modelViewer.removeEventListener("click", this.__handleClick.bind(this));
+    store.modelViewer.removeEventListener("focus", this.__focusHotspot.bind(this), true);
+    super.disconnectedCallback();
+  }
+
+  render() {
+    return html`
+      <slot></slot>
+    `;
   }
 }
 

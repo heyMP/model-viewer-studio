@@ -16,7 +16,7 @@ class XPanel extends MobxLitElement {
       }
       #panel {
         background: white;
-        display: flex;
+        display: block;
         position: relative;
         width: 30vw;
         max-width: 400px;
@@ -39,6 +39,7 @@ class XPanel extends MobxLitElement {
   render() {
     return html`
       <div id="panel" class="${store.editing ? 'editing': ''}">
+        <h2>Edit Hotspots</h2>
         <x-edit-panel></x-edit-panel>
       </div>
     `;

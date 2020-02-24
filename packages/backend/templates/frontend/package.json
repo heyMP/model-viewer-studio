@@ -14,7 +14,6 @@
     "http-server": "^0.12.1"
   },
   "scripts": {
-    "dev": "http-server",
-    "deploy": "surge -d model-viewer-studio.heymp.surge.sh"
+    "dev": "http-server ."
   }
 }

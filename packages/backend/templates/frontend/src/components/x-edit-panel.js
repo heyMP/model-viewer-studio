@@ -2,6 +2,7 @@
 import { LitElement, html, css } from "../../web_modules/lit-element.js";
 import { MobxLitElement } from "../../web_modules/@adobe/lit-mobx.js";
 import { store } from "../store.js";
+import "./x-edit-panel-add-hotspot-block.js"
 
 class XEditPanel extends MobxLitElement {
   static get styles() {
@@ -71,10 +72,14 @@ class XEditPanel extends MobxLitElement {
               />
             </div>
           `
-        : html``}
+        : html`
+          <x-edit-panel-add-hotspot-block></x-edit-panel-add-hotspot-block>
+        `}
 
-      <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
-      <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
+      ${editing ? html`
+        <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
+        <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
+      ` : ''}
       <button @click=${() => store.stopEditing()}>Cancel</button>
     `;
   }
