@@ -1,17 +1,17 @@
 {
   "name": "model-viewer-studio",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./bin/index.js",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./bin/index.js ../../demo/index.html"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
     "body-parser": "^1.19.0",
+    "chalk": "^3.0.0",
+    "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
-    "chalk": "^3.0.0"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
