@@ -2,7 +2,7 @@
 
 A CLI for authoring 3D models using the `model-viewer` web component. [https://modelviewer.dev/](https://modelviewer.dev/)
 
-![screenshot](screenshot.png)
+![screenshot](https://github.com/heyMP/model-viewer-studio/blob/master/packages/backend/screenshot.png?raw=true)
 
 ## Usage
 
