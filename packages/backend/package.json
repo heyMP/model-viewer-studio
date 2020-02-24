@@ -2,7 +2,7 @@
   "name": "model-viewer-studio",
   "version": "0.0.4",
   "main": "./bin/index.js",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "nodemon ./bin/index.js ../../demo/index.html"
   },
