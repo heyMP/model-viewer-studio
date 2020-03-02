@@ -25,7 +25,15 @@ class XEditPanel extends MobxLitElement {
 
   render() {
     const editing = store.editing && store.temporaryHotspot !== null;
+    const cameraTarget = store.modelViewer.getAttribute("camera-target");
+    console.log(store.modelViewer.attributes);
     return html`
+      ${store.editing ? html`
+        <div class="input-field">
+          <label for="camera-target">Camera Target:</label>
+          ${cameraTarget}
+        </div>
+      ` : html``}
       ${editing
         ? html`
             <div class="input-field">
@@ -77,9 +85,9 @@ class XEditPanel extends MobxLitElement {
         `}
 
       ${editing ? html`
-        <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
         <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
       ` : ''}
+      <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
       <button @click=${() => store.stopEditing()}>Cancel</button>
     `;
   }

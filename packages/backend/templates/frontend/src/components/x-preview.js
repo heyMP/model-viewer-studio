@@ -1,18 +1,14 @@
 // @ts-check
 import { LitElement, html, css } from "../../web_modules/lit-element.js";
 import { MobxLitElement } from "../../web_modules/@adobe/lit-mobx.js";
+import "./x-keyboard-shortcuts.js";
 import { store } from "../store.js";
 
 class XPreview extends MobxLitElement {
-  static get properties() {
-    return {
-      src: { type: String }
-    };
-  }
 
   constructor() {
     super();
-    this.src = null;
+    this.__shiftKey = false;
   }
 
   static get styles() {
@@ -27,6 +23,11 @@ class XPreview extends MobxLitElement {
       :not(:defined) > * {
         display: none;
       }
+      x-keyboard-shortcuts {
+        position: absolute;
+        right: 100%;
+        bottom: 100%;
+      }
     `;
   }
 
@@ -39,24 +40,19 @@ class XPreview extends MobxLitElement {
           store.modelViewer = node;
           store.modelViewer.addEventListener("click", this.__handleClick.bind(this));
           store.modelViewer.addEventListener("focus", this.__focusHotspot.bind(this), true);
+          store.modelViewer.addEventListener("keydown", this.__keydown.bind(this));
+          store.modelViewer.addEventListener("keyup", this.__keyup.bind(this));
         }
       }
     });
   }
 
-  __focusHotspot(event) {
-    if (!store.editing) {
+  __handleClick(event) {
+    // Find out if we are trying to set the orbital focus
+    if (this.__shiftKey) {
+      this.__setOrbitalFocus(event);
       return;
     }
-    else {
-      const hotspot = event.target.closest(`[slot]`)
-      if (hotspot) {
-        store.editHotspot(hotspot);
-      }
-    }
-  }
-
-  __handleClick(event) {
     // see if we should
     if (!store.editing) {
       return;
@@ -77,6 +73,33 @@ class XPreview extends MobxLitElement {
       if (hotspot) {
         store.editHotspot(hotspot);
       }
+    }
+  }
+
+  // Track shiftKey events
+  __keydown(event) {
+    this.__shiftKey = event.shiftKey;
+  }
+  __keyup(event) {
+    this.__shiftKey = event.shiftKey;
+  }
+  // If we are 
+  __focusHotspot(event) {
+    if (!store.editing) {
+      return;
+    }
+    else {
+      const hotspot = event.target.closest(`[slot]`)
+      if (hotspot) {
+        store.editHotspot(hotspot);
+      }
+    }
+  }
+
+  __setOrbitalFocus(event) {
+    const position = this.__getPositionAndNormal(event);
+    if (position) {
+      store.modelViewer.setAttribute("camera-target", position.position.toString());
     }
   }
 
@@ -109,6 +132,7 @@ class XPreview extends MobxLitElement {
 
   render() {
     return html`
+      <x-keyboard-shortcuts></x-keyboard-shortcuts>
       <slot></slot>
     `;
   }

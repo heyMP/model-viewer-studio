@@ -24,9 +24,6 @@ const deconstructHotspotElement = node => {
   return { id, position, normal, reference, annotation };
 };
 
-class Hotspot {
-  constructor() {}
-}
 const newHostspot = () => {
   return {
     id: `hotspot-${generateUuid()}`,
@@ -198,5 +195,20 @@ autorun(() => {
         currentAnnotation.innerHTML = store.temporaryHotspot.annotation;
       }
     }
+  }
+  if (store.modelViewer) {
+    store.modelViewer
+    var observer = new MutationObserver(function (mutations) {
+      // Whether you iterate over mutations..
+      mutations.forEach(function (mutation) {
+      });
+    });
+    observer.observe(store.modelViewer, {
+      attributes: true,
+      childList: false,
+      characterData: false,
+      characterDataOldValue: false,
+      subtree: false
+    });
   }
 });
