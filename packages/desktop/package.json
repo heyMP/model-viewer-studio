@@ -12,5 +12,6 @@
   },
   "scripts": {
     "start": "electron ."
-  }
+  },
+  "private": true
 }
