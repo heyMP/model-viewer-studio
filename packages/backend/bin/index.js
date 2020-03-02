@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 
 const chalk = require("chalk");
+const program = require('commander');
 const server = require("../server.js");
 
-let target;
-if (process.argv && process.argv[2]) {
-  target = process.argv[2];
-}
-else {
+program
+  .arguments('<target>')
+  .action(function (_target) {
+    target = _target
+  })
+  .option('-p, --port <number>', 'specify port. defaults to 3000');
+
+program.parse(process.argv);
+
+if (typeof target === 'undefined') {
   console.log(chalk.red.bold("You need to specify an HTML file containing your model."));
   process.exit(1);
 }
-let port = process.env.PORT || "3000";
 
-server({ target, port });
+server({ target, port: program.port });
