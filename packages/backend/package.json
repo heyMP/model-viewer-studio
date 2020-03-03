@@ -1,6 +1,6 @@
 {
   "name": "model-viewer-studio",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "./bin/index.js",
   "license": "Apache-2.0",
   "scripts": {
@@ -20,5 +20,5 @@
   "bin": {
     "mvstudio": "./bin/index.js"
   },
-  "gitHead": "97241ca23cf02aa25b1827ddb79edf3fddab926e"
+  "gitHead": "824c7304391531da37a71e203a2b01c3b6822a60"
 }
