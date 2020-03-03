@@ -10,9 +10,10 @@ const {
 } = require("electron");
 const cp = require("child_process");
 const getPort = require("get-port");
+const path = require("path");
 
 // Track the open child processes
-let childProcesses = []
+let childProcesses = [];
 
 function createWindow() {
   // Create the browser window.
@@ -28,7 +29,7 @@ function createWindow() {
   win.loadFile("src/index.html");
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished
@@ -53,6 +54,19 @@ app.on("activate", () => {
   }
 });
 
+// This allows us to run a server on localhost. Without https
+app.on("certificate-error", function(
+  event,
+  webContents,
+  url,
+  error,
+  certificate,
+  callback
+) {
+  event.preventDefault();
+  callback(true);
+});
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on("open-file", async e => {
@@ -63,21 +77,25 @@ ipcMain.on("open-file", async e => {
   });
   if (file.filePaths[0]) {
     // start server
-    const spawn = cp.spawn('./node_modules/.bin/mvstudio', [file.filePaths[0]])
-    spawn.stdout.on('data', async (data) => {
+    const spawn = cp.spawn(`./node_modules/.bin/mvstudio`, [
+      `--port=${availablePort}`,
+      file.filePaths[0]
+    ]);
+    spawn.stdout.on("data", async data => {
       console.log(`stdout: ${data}`);
     });
-    let win = new BrowserWindow({ title: 'asdf', width: 800, height: 600 })
-    win.on('closed', () => {
-      spawn.kill()
-      win = null
+    let win = new BrowserWindow({
+      title: "Model Viewer Studio",
+      width: 1200,
+      height: 800,
+      webPreferences: {
+        nodeIntegration: true
+      }
     });
-    win.loadURL('http://localhost:3000');
-    // win.loadFile(file.filePaths[0])
-    // win.loadURL(url.format({
-    //   pathname: `http://localhost:3000`,
-    //   protocol: 'file:',
-    //   slashes: true,
-    // }));
+    win.on("closed", () => {
+      spawn.kill();
+      win = null;
+    });
+    win.loadURL(`http://localhost:${availablePort}`);
   }
 });

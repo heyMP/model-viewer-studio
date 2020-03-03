@@ -47,7 +47,7 @@ class Store {
   }
 
   connect() {
-    fetch("http://localhost:3000/ping").then(res => {
+    fetch("/ping").then(res => {
       this.connected = true;
     });
   }
@@ -65,7 +65,7 @@ class Store {
     this.saving = true;
     // take snapshot of entire model and save it.
     const snapshot = this.modelViewer.outerHTML;
-    fetch("http://localhost:3000/save", {
+    fetch("/save", {
       method: "POST",
       body: snapshot
     }).then(res => {
