@@ -6,14 +6,14 @@ const {
   Menu,
   shell,
   ipcRenderer,
-  url
+  url,
+  session,
+  netLog
 } = require("electron");
 const cp = require("child_process");
 const getPort = require("get-port");
 const path = require("path");
-
-// Track the open child processes
-let childProcesses = [];
+const log = require("electron-log");
 
 function createWindow() {
   // Create the browser window.
@@ -35,6 +35,7 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+app.enableRendererProcessReuse = true;
 app.whenReady().then(createWindow);
 
 // Quit when all windows are closed.
@@ -54,6 +55,21 @@ app.on("activate", () => {
   }
 });
 
+app.on("ready", async () => {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        "Content-Security-Policy": ["*"]
+      }
+    });
+  });
+
+  await netLog.startLogging("/Users/michael/Library/Logs/mvs-desktop/netlogs");
+  // After some network events
+  await netLog.stopLogging();
+});
+
 // This allows us to run a server on localhost. Without https
 app.on("certificate-error", function(
   event,
@@ -69,33 +85,43 @@ app.on("certificate-error", function(
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-ipcMain.on("open-file", async e => {
-  const availablePort = await getPort();
-  const file = await dialog.showOpenDialog({
-    properties: ["openFile"],
-    filters: [{ name: "HTML", extensions: ["html"] }]
-  });
-  if (file.filePaths[0]) {
-    // start server
-    const spawn = cp.spawn(`./node_modules/.bin/mvstudio`, [
-      `--port=${availablePort}`,
-      file.filePaths[0]
-    ]);
-    spawn.stdout.on("data", async data => {
-      console.log(`stdout: ${data}`);
-    });
-    let win = new BrowserWindow({
-      title: "Model Viewer Studio",
-      width: 1200,
-      height: 800,
-      webPreferences: {
-        nodeIntegration: true
-      }
-    });
-    win.on("closed", () => {
-      spawn.kill();
-      win = null;
-    });
-    win.loadURL(`http://localhost:${availablePort}`);
-  }
+ipcMain.on("open-file", e => {
+  // log.info("boo server");
+  // try {
+  //   const availablePort = await getPort();
+  //   const file = await dialog.showOpenDialog({
+  //     properties: ["openFile"],
+  //     filters: [{ name: "HTML", extensions: ["html"] }]
+  //   });
+  //   if (file.filePaths[0]) {
+  //     // start server
+  //     // send arguments target and port
+  //     const spawn = cp.spawn("node", [
+  //       path.join(__dirname, "mvStudioServer.js"),
+  //       file.filePaths[0],
+  //       availablePort
+  //     ]);
+  //     spawn.stdout.on("data", data => {
+  //       if (data.toString().includes('listening on port')) {
+  //         log.info(`Creating Window for ${spawn.pid}`);
+  //         let win = new BrowserWindow({
+  //           title: "Model Viewer Studio",
+  //           width: 1200,
+  //           height: 800,
+  //           webPreferences: {
+  //             nodeIntegration: true
+  //           }
+  //         });
+  //         win.on("closed", () => {
+  //           log.info("closing server");
+  //           spawn.kill();
+  //           win = null;
+  //         });
+  //         win.loadURL(`http://127.0.0.1:${availablePort}`);
+  //       }
+  //     });
+  //   }
+  // } catch (error) {
+  //   log.error(error);
+  // }
 });

@@ -1,17 +1,28 @@
 {
-  "name": "desktop",
+  "name": "mvs-desktop",
   "version": "0.0.9",
   "main": "main.js",
+  "description": "asdf",
   "license": "MIT",
+  "author": "heymp",
+  "repository": "https://github.com/heyMP/model-viewer-studio",
+  "keywords": [
+    "Electron"
+  ],
   "dependencies": {
+    "electron-log": "^4.0.7",
     "get-port": "^5.1.1",
     "model-viewer-studio": "^0.0.9"
   },
   "devDependencies": {
-    "electron": "^8.0.2"
+    "electron": "^8.0.2",
+    "electron-builder": "^22.3.6",
+    "icon-gen": "^2.0.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "convert-icons": "node ./util/convertIcons.js",
+    "build": "./node_modules/.bin/electron-builder"
   },
   "private": true
 }
