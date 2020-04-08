@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
+import { findAllDeep } from './lib/util.js'
 
 export class MvstudioApp extends LitElement {
   static get styles() {
@@ -22,35 +23,7 @@ export class MvstudioApp extends LitElement {
   }
 
   async firstUpdated() {
-    const findAllDeep = (parent, selectors, depth = null) => {
-      let nodes = [];
-      let currentDepth = 1; 
-      const recursiveSeek = (_parent) => {
-        // record the nodes
-        for (let child of _parent.assignedNodes({flatten: true})) {
-          // if it is a legit element
-          if (child.querySelector) {
-            // save the found nodes and keep moving
-            const foundItems = child.querySelectorAll(selectors)
-            nodes = [...nodes, ...foundItems]
-            // now loop of each of the found see if we can sniff out more slots
-            if (depth && currentDepth < depth) {
-              for (let foundItem of foundItems) {
-                if (foundItem.querySelectorAll) {
-                  for (let slot of _parent.querySelectorAll('slot')) {
-                    console.log('slot:', slot)
-                    recursiveSeek(slot);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      recursiveSeek(parent);
-      return nodes
-    }
-    const nodes = findAllDeep(this.shadowRoot.querySelector('slot'), 'button');
+    const nodes = findAllDeep(this.shadowRoot.querySelector('slot'), 'button', 1);
     console.log('nodes:', nodes)
   }
 
