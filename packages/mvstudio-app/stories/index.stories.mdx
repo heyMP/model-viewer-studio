@@ -1,0 +1,55 @@
+import { Story, Preview, Meta, Props, html } from '@open-wc/demoing-storybook';
+
+import '../mvstudio-app.js';
+
+<Meta 
+  title="MvstudioApp"
+  parameters={{
+    component: "mvstudio-app",
+    options: { selectedPanel: "storybookjs/knobs/panel" }
+  }}
+/>
+
+# MvstudioApp
+
+A component for...
+
+## Features:
+
+- a
+- b
+- ...
+
+## How to use
+
+### Installation
+
+```bash
+yarn add mvstudio-app
+```
+
+```js
+import 'mvstudio-app/mvstudio-app.js';
+```
+
+<Preview withToolbar>
+  <Story name="Simple">
+    {html`
+      <mvstudio-app></mvstudio-app>
+    `}
+  </Story>
+</Preview>
+
+## API
+
+<Props of="mvstudio-app" />
+
+## Variations
+
+###### Custom Title
+
+<Story name="Custom Title">
+  {html`
+    <mvstudio-app .title=${'Hello World'}></mvstudio-app>
+  `}
+</Story>
