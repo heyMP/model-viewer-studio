@@ -1,5 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { findAllDeep } from './lib/util.js'
+import { store } from "./lib/store.js"
+import "./MvstudioPannel.js";
 
 export class MvstudioApp extends LitElement {
   static get styles() {
@@ -23,12 +25,13 @@ export class MvstudioApp extends LitElement {
   }
 
   async firstUpdated() {
-    const nodes = findAllDeep(this.shadowRoot.querySelector('slot'), 'button', 1);
-    console.log('nodes:', nodes)
+    const hotspots = findAllDeep(this.shadowRoot.querySelector('slot'), `[slot*="hotspot"]`, 1);
+    store.hotspots = hotspots;
   }
 
   render() {
     return html`
+      <mvstudio-pannel></mvstudio-pannel>
       <div id="slot">
         <slot></slot>
       </div>
