@@ -3,47 +3,49 @@ import {
   decorate,
   computed,
   action,
-  autorun
+  autorun,
+  toJS
 } from "mobx";
 
 class Store {
   constructor() {
     this.hotspots = []
-    this.activeHostpot = null
   }
 
-  activateHotspot(hotspot) {
-    this.activeHostpot = hotspot;
+  storeRawHotspots(hotspots) {
+    this.hotspots = hotspots.map(i => {
+      i.hidden = true;
+      return { target: i, hidden: true }
+    })
+  }
+
+  toggleHotspotsOn() {
+    this.hotspots = this.hotspots.map(i => {
+      i.hidden = false;
+      return i
+    });
+  }
+
+  toggleHotspotsOff() {
+    this.hotspots = this.hotspots.map(i => {
+      i.hidden = true;
+      return i
+    });
   }
 }
 
 decorate(Store, {
   hotspots: observable,
-  activeHostpot: observable,
-  activateHotspot: action
+  storeRawHotspots: action,
+  toggleHotspotsOn: action,
+  toggleHotspotsOff: action
 })
 
 export const store = new Store()
 window.store = store;
 
 autorun(() => {
-  // if (store.hotspots) {
-  //   const hiddenHostpots = store.hotspots.filter(i => {
-  //     if (store.activeHostpot) {
-  //       if (store.activateHotspot.id !== i.id) {
-  //         return false;
-  //       }
-  //     }
-  //     return true
-  //   })
-  //   hiddenHostpots.forEach(i => {
-  //     i.hidden = true;
-  //   });
-  //   if (store.activeHostpot) {
-  //     store.activeHostpot.hidden = false;
-  //   }
-  // }
+  store.hotspots.forEach(hotspot => {
+    hotspot.target.hidden = hotspot.hidden;
+  });
 });
-
-const updateHotspotVisibility = () => {
-}

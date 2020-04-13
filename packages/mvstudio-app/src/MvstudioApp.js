@@ -26,7 +26,7 @@ export class MvstudioApp extends LitElement {
 
   async firstUpdated() {
     const hotspots = findAllDeep(this.shadowRoot.querySelector('slot'), `[slot*="hotspot"]`, 1);
-    store.hotspots = hotspots;
+    store.storeRawHotspots(hotspots);
   }
 
   render() {
