@@ -1,9 +1,9 @@
 {
   "name": "mvstudio-app",
-  "version": "0.0.0",
-  "description": "Webcomponent mvstudio-app following open-wc recommendations",
-  "author": "mvstudio-app",
-  "license": "MIT",
+  "version": "0.0.1",
+  "description": "Web Component to display model-viewer tags.",
+  "author": "heyMP",
+  "license": "Apache-2.0",
   "main": "index.js",
   "module": "index.js",
   "scripts": {
