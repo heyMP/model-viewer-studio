@@ -1,6 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { findAllDeep } from './lib/util.js'
 import { store } from "./lib/store.js"
+import "@vaadin/vaadin-app-layout";
 import "./MvstudioPannel.js";
 
 export class MvstudioApp extends LitElement {
