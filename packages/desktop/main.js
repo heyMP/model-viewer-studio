@@ -14,6 +14,7 @@ const cp = require("child_process");
 const getPort = require("get-port");
 const path = require("path");
 const log = require("electron-log");
+require("./mvStudioServer.js");
 
 function createWindow() {
   // Create the browser window.
@@ -85,43 +86,44 @@ app.on("certificate-error", function(
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-ipcMain.on("open-file", e => {
-  // log.info("boo server");
-  // try {
-  //   const availablePort = await getPort();
-  //   const file = await dialog.showOpenDialog({
-  //     properties: ["openFile"],
-  //     filters: [{ name: "HTML", extensions: ["html"] }]
-  //   });
-  //   if (file.filePaths[0]) {
-  //     // start server
-  //     // send arguments target and port
-  //     const spawn = cp.spawn("node", [
-  //       path.join(__dirname, "mvStudioServer.js"),
-  //       file.filePaths[0],
-  //       availablePort
-  //     ]);
-  //     spawn.stdout.on("data", data => {
-  //       if (data.toString().includes('listening on port')) {
-  //         log.info(`Creating Window for ${spawn.pid}`);
-  //         let win = new BrowserWindow({
-  //           title: "Model Viewer Studio",
-  //           width: 1200,
-  //           height: 800,
-  //           webPreferences: {
-  //             nodeIntegration: true
-  //           }
-  //         });
-  //         win.on("closed", () => {
-  //           log.info("closing server");
-  //           spawn.kill();
-  //           win = null;
-  //         });
-  //         win.loadURL(`http://127.0.0.1:${availablePort}`);
-  //       }
-  //     });
-  //   }
-  // } catch (error) {
-  //   log.error(error);
-  // }
+ipcMain.on("open-file", async e => {
+  log.info("starting server");
+  try {
+    const availablePort = await getPort();
+    const file = await dialog.showOpenDialog({
+      properties: ["openFile"],
+      filters: [{ name: "HTML", extensions: ["html"] }]
+    });
+    if (file.filePaths[0]) {
+      // start server
+      // send arguments target and port
+      const spawn = cp.spawn("node", [
+        path.join(__dirname, "mvStudioServer.js"),
+        file.filePaths[0],
+        availablePort
+      ]);
+      spawn.stdout.on("data", data => {
+        log.info(data.toString())
+        if (data.toString().includes('listening on port')) {
+          log.info(`Creating Window for ${spawn.pid}`);
+          let win = new BrowserWindow({
+            title: "Model Viewer Studio",
+            width: 1200,
+            height: 800,
+            webPreferences: {
+              nodeIntegration: true
+            }
+          });
+          win.on("closed", () => {
+            log.info("closing server");
+            spawn.kill();
+            win = null;
+          });
+          win.loadURL(`http://127.0.0.1:${availablePort}`);
+        }
+      });
+    }
+  } catch (error) {
+    log.error(error);
+  }
 });
