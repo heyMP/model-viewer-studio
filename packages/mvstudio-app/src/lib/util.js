@@ -4,6 +4,12 @@ export const findAllDeep = (parent, selectors, depth = null) => {
   const recursiveSeek = _parent => {
     // record the nodes
     for (let child of _parent.assignedNodes({ flatten: true })) {
+      // check if the current node matches the selector
+      if (child.matches) {
+        if (child.matches(selectors)) {
+          nodes = [...nodes, child];
+        }
+      }
       // if it is a legit element
       if (child.querySelector) {
         // save the found nodes and keep moving

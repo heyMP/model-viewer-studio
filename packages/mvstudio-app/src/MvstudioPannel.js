@@ -21,6 +21,20 @@ export class MvstudioPannel extends MobxLitElement {
         width: auto;
         border: none;
       }
+
+      #toggles {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      vaadin-button {
+        font-size: 12px;
+      }
+
+      #hotspots-header {
+        margin: auto;
+      }
     `;
   }
 
@@ -28,9 +42,13 @@ export class MvstudioPannel extends MobxLitElement {
     // get a list of the selected mong
     const selected = `[${store.hotspots.map((i, index) => (i.hidden) ? null : index).filter(i => (i !== null)).join(',')}]`;
     return html`
-      <a role="button" @click=${e => store.toggleHotspotsOn()}>Toggle All On</a>
-      <a role="button" @click=${e => store.toggleHotspotsOff()}>Toggle All Off</a>
       <vaadin-list-box multiple selected-values="${selected}" @selected-values-changed=${this.__itemSelectedHandler}>
+        <hr>
+        <div id="toggles">
+          <vaadin-button @click=${e => store.toggleHotspotsOn()}>Toggle All On</vaadin-button>
+          <vaadin-button @click=${e => store.toggleHotspotsOff()}>Toggle All Off</vaadin-button>
+        </div>
+        <hr>
       ${store.hotspots.map(
         hotspot => html`
           <vaadin-item>${hotspot.target.innerText}</vaadin-item>

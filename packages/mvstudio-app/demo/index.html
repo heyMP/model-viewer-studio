@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,24 +16,66 @@
       height: 100vh;
       width: 100%;
     }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to top, #dfddcf 0%, #e2ebf0 100%);
+    }
+
+    button {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: white;
+      box-sizing: border-box;
+      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1),
+        -2px -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #annotation {
+      background-color: white;
+      position: absolute;
+      transform: translate(50%, -50%);
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2),
+        -2px -2px 5px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      opacity: 0;
+    }
+
+    [data-visible] #annotation {
+      opacity: 1;
+    }
   </style>
 </head>
+
 <body>
 
   <mvstudio-app>
     <model-viewer src="assets/Fibula.gltf" auto-rotate camera-controls>
-      <button slot="hotspot-d23e072f" data-position="0.051202476552308446m 0.08550658748912168m 0.13010272099364253m" data-normal="0.4653649893663422m 0.0019056999682495444m 0.8851168256110012m" data-visibility-attribute="visible" id="hotspot-left-goggle" data-visible>
+      <button slot="hotspot-d23e072f" data-position="0.051202476552308446m 0.08550658748912168m 0.13010272099364253m"
+        data-normal="0.4653649893663422m 0.0019056999682495444m 0.8851168256110012m" data-visibility-attribute="visible"
+        id="hotspot-left-goggle" data-visible>
         <div id="annotation">Left Goggle Lens</div>
       </button>
-      <button slot="hotspot-36b42f2f" data-position="-0.06402860445643878m 0.08116750414538312m 0.12159664616201027m" data-normal="-0.6604893606809414m 0.019042503405450033m 0.7505938898574481m" data-visibility-attribute="visible" id="hotspot-36b42f2f" data-visible>
+      <button slot="hotspot-36b42f2f" data-position="-0.06402860445643878m 0.08116750414538312m 0.12159664616201027m"
+        data-normal="-0.6604893606809414m 0.019042503405450033m 0.7505938898574481m" data-visibility-attribute="visible"
+        id="hotspot-36b42f2f" data-visible>
         <div id="annotation">Right Lens</div>
       </button>
-      <button slot="hotspot-233r" data-position="-0.06402860445643878m 0.08116750414538312m 0.12159664616201027m" data-normal="-0.6604893606809414m 0.019042503405450033m 0.7505938898574481m" data-visibility-attribute="visible" id="hotspot-36b42f2f" data-visible>
+      <button slot="hotspot-233r" data-position="-0.06402860445643878m 0.08116750414538312m 0.12159664616201027m"
+        data-normal="-0.6604893606809414m 0.019042503405450033m 0.7505938898574481m" data-visibility-attribute="visible"
+        id="hotspot-36b42f2f" data-visible>
         <div id="annotation">Center Lens</div>
       </button>
+    </model-viewer>
   </mvstudio-app>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/lib/model-viewer.js?module"></script>
   <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
   <script type="module" src="../mvstudio-app.js"></script>
-</body></html>
+</body>
+
+</html>
