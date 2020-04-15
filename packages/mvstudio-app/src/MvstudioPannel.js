@@ -2,9 +2,9 @@ import { html, css, LitElement } from 'lit-element';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { store } from './lib/store.js';
-import "@vaadin/vaadin-list-box";
-import "@vaadin/vaadin-button";
-import "@vaadin/vaadin-item";
+import "@vaadin/vaadin-list-box/vaadin-list-box.js";
+import "@vaadin/vaadin-button/vaadin-button.js";
+import "@vaadin/vaadin-item/vaadin-item.js";
 
 export class MvstudioPannel extends MobxLitElement {
   static get styles() {

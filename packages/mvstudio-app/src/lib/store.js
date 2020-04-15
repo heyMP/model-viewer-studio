@@ -14,7 +14,6 @@ class Store {
 
   storeRawHotspots(hotspots) {
     this.hotspots = hotspots.map(i => {
-      i.hidden = true;
       return { target: i, hidden: true }
     })
   }
