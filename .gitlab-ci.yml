@@ -1,0 +1,31 @@
+image: tiangolo/docker-with-compose
+
+stages:
+  - build
+  - deploy
+
+build-cod1-swarm:
+  stage: build
+  tags:
+    - cod1
+  before_script:
+    - cd packages/demo
+  script:
+    - docker-compose build
+  only:
+    - master
+
+deploy-cod1-swarm:
+  stage: deploy
+  variables:
+    HOST: "mvstudio-demo.courses.science.psu.edu"
+  tags:
+    - cod1
+  before_script:
+    - cd packages/demo
+  script:
+    - pwd
+    - ls -la
+    - docker stack deploy -c docker-compose.yml --resolve-image always mvstudio-demo
+  only:
+    - master
