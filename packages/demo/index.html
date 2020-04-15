@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    mvstudio-app {
+      display: block;
+      height: 100vh;
+      width: 100%;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to top, #dfddcf 0%, #e2ebf0 100%);
+    }
+
+    button {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: white;
+      box-sizing: border-box;
+      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1),
+        -2px -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button[hidden] {
+      display: none;
+    }
+
+    #annotation {
+      background-color: white;
+      position: absolute;
+      transform: translate(50%, -50%);
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2),
+        -2px -2px 5px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      opacity: 0;
+    }
+
+    [data-visible] #annotation {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <mvstudio-app title="Clavicle">
+    <model-viewer src="./assets/Clavicle.gltf" auto-rotate camera-controls>
+
+      <button slot="hotspot-7392718b" data-position="48.3950599760557m -3.2944416028054517m 24.89774201478038m"
+        data-normal="1.9895439989134829m 0.8602002344838477m -1.0354781591397142m" data-visibility-attribute="visible"
+        id="hotspot-7392718b" data-visible>
+        <div id="annotation">Sternal Facet (articular surface)</div>
+      </button>
+      <button slot="hotspot-dbf35378" data-position="44.17781148697113m -10.341385795555844m 18.555606585327915m"
+        data-normal="1.8085684971533453m 0.514500214092942m -1.3324258463106933m" data-visibility-attribute="visible"
+        id="hotspot-851c93fc" data-visible>
+        <div id="annotation">Sternal End</div>
+      </button>
+      <button slot="hotspot-f0fc2851" data-position="-25.135066272787753m 9.64629085121851m 17.149856115396727m"
+        data-normal="0.6513390651723725m 0.07191508341599195m -0.8692562042222349m" data-visibility-attribute="visible"
+        id="hotspot-f0fc2851" data-visible>
+        <div id="annotation">Shaft</div>
+      </button>
+
+      <button slot="hotspot-edd15c67" data-position="32.67306146649873m 1.3104091866712793m 24.74821940925659m"
+        data-normal="1.0480976212856419m 1.9127413454422477m -1.4056967526945954m" data-visibility-attribute="visible"
+        id="hotspot-329759c1" data-visible>
+        <div id="annotation">Impression for Costoclavicular ligament</div>
+      </button>
+      <button slot="hotspot-7a2ea266" data-position="-4.1408059039973395m 12.56571658296349m 23.422246730823012m"
+        data-normal="1.335093682796277m 1.916113516243598m -1.220109629743483m" data-visibility-attribute="visible"
+        id="hotspot-8a94c960" data-visible>
+        <div id="annotation">Subclavian Groove</div>
+      </button>
+      <button slot="hotspot-c1238184" data-position="-44.02062892075424m 26.43951560837141m -5.1752591669190515m"
+        data-normal="1.154835962875417m 0.6018780963114607m -1.9041707661741007m" data-visibility-attribute="visible"
+        id="hotspot-c1238184" data-visible>
+        <div id="annotation">Conoid Tubercle</div>
+      </button>
+
+      <button slot="hotspot-606c8bba" data-position="-67.48810420578667m 29.64978487641781m 3.175765721083433m"
+        data-normal="0.5942654190914034m 0.164138118030975m -1.3697490556122176m" data-visibility-attribute="visible"
+        id="hotspot-5566a308" data-visible>
+        <div id="annotation">Trapezoid line</div>
+      </button>
+
+      <button slot="hotspot-add6325b" data-position="-78.63393568915585m 37.23046501921809m 10.149808087714183m"
+        data-normal="0.11184771647575342m 1.3225636654503121m -0.6726802740409195m" data-visibility-attribute="visible"
+        id="hotspot-b2e8600f" data-visible>
+        <div id="annotation">Acromial facet (articular surface)</div>
+      </button>
+
+
+      <button slot="hotspot-e702b2d8" data-position="-16.46777702657805m 15.967831767815781m 16.515949900676645m"
+        data-normal="1.3884562656475694m 1.9079082898863735m -1.157493704111456m" data-visibility-attribute="visible"
+        id="hotspot-408e3eff" data-visible>
+        <div id="annotation">Acromial End</div>
+      </button>
+      <button slot="hotspot-a430e399" data-position="-13.007214787216657m 6.955484081156527m 26.31466122335931m"
+        data-normal="0.6216543585480068m 0.35766093506779006m -0.33347535585224364m" data-visibility-attribute="visible"
+        id="hotspot-bb3ee9e1" data-visible>
+        <div id="annotation">Anterior</div>
+      </button>
+
+      <button slot="hotspot-88903201" data-position="-5.728953786427667m 5.590600667889817m 17.508629365132833m"
+        data-normal="1.1626366826948402m 0.5616444592160355m -1.8839647783175613m" data-visibility-attribute="visible"
+        id="hotspot-2fb31bd5" data-visible>
+        <div id="annotation">Posterior</div>
+      </button></model-viewer>
+  </mvstudio-app>
+
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>

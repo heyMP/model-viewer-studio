@@ -6,6 +6,17 @@ import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle.js";
 import "./MvstudioPannel.js";
 
 export class MvstudioApp extends LitElement {
+  static get properties() {
+    return {
+      title: { type: String }
+    }
+  }
+
+  constructor() {
+    super();
+    this.title = null
+  }
+
   static get styles() {
     return css`
       :host {
@@ -47,7 +58,9 @@ export class MvstudioApp extends LitElement {
     return html`
     <vaadin-app-layout>
       <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
-      <h1 id="title" slot="navbar">Model Viewer Studio</h1>
+      ${this.title ? html`
+        <h1 id="title" slot="navbar">${this.title}</h1>
+      `:''}
       <div slot="drawer" orientation="vertical" theme="minimal" style="margin: 0 auto; flex: 1;">
         <mvstudio-pannel></mvstudio-pannel>
       </div>

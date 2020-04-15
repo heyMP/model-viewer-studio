@@ -1,0 +1,15 @@
+{
+  "name": "@mvstudio/demo",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "es-dev-server --app-index demo/index.html --root-dir ../ --node-resolve --watch --open"
+  },
+  "dependencies": {
+    "mvstudio-app": "^0.0.2",
+    "@google/model-viewer": "^0.9.0"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.46.2"
+  }
+}
