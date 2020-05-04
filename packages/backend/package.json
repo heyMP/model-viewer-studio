@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "nodemon ./bin/index.js ../../demo/index.html"
+    "dev": "nodemon ./bin/index.js ../demo/index.html"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

@@ -41,7 +41,7 @@ module.exports = ({ target, port = 3000 }) => {
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
   ></script>
     `);
-    $("model-viewer").appendTo("x-preview");
+    $("model-viewer").appendTo("mvs-preview");
     res.send($.html());
   });
 

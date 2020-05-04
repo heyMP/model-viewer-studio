@@ -1,0 +1,19 @@
+{
+  "name": "mvstudio",
+  "version": "0.0.9",
+  "main": "server.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@adobe/lit-mobx": "^0.0.2",
+    "@google/model-viewer": "^0.9.0",
+    "lit-element": "^2.2.1",
+    "mobx": "^5.15.4",
+    "three": "^0.113.2"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.1"
+  },
+  "scripts": {
+    "dev": "http-server ."
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "imports": {
-    "@adobe/lit-mobx": "./@adobe/lit-mobx.js",
-    "@google/model-viewer": "./@google/model-viewer.js",
-    "lit-element": "./lit-element.js",
-    "mobx": "./mobx.js",
-    "three": "./three.js"
-  }
-}
