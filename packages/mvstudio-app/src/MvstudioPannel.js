@@ -2,9 +2,12 @@ import { html, css, LitElement } from 'lit-element';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { store } from './lib/store.js';
+import { toJS } from 'mobx';
 import "@vaadin/vaadin-list-box/vaadin-list-box.js";
 import "@vaadin/vaadin-button/vaadin-button.js";
 import "@vaadin/vaadin-item/vaadin-item.js";
+import "./mvs-preview.js"
+import "./mvstudio-pannel-hotspot-item.js"
 
 export class MvstudioPannel extends MobxLitElement {
   static get styles() {
@@ -53,7 +56,7 @@ export class MvstudioPannel extends MobxLitElement {
         <hr>
       ${store.hotspots.map(
         hotspot => html`
-          <vaadin-item>${hotspot.target.innerText}</vaadin-item>
+          <vaadin-item><mvstudio-pannel-hotspot-item .hotspot=${hotspot}></mvstudio-pannel-hotspot-item></vaadin-item>
         `,
       )}
       </vaadin-list-box>

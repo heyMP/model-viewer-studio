@@ -3,7 +3,8 @@ import {
   decorate,
   computed,
   action,
-  autorun
+  autorun,
+  toJS
 } from "mobx";
 
 const generateUuid = () => {
@@ -40,17 +41,19 @@ class Store {
     this.hotspots = []
     this.modelViewer = null;
     this.editing = false;
-    this.saving = true;
+    this.saving = false;
     this.connected = false;
     this.temporaryHotspot = null;
     this.hotspotEditing = false;
+    this.hotspotVisiblilityDefault = false;
     this.connect();
   }
 
   connect() {
-    fetch("/ping").then(res => {
-      this.connected = true;
-    });
+    this.connected = true;
+    // fetch("/ping").then(res => {
+    //   this.connected = true;
+    // });
   }
 
   startEditing() {
@@ -143,7 +146,7 @@ class Store {
 
   storeRawHotspots(hotspots) {
     this.hotspots = hotspots.map(i => {
-      return { target: i, hidden: true }
+      return { target: i, hidden: this.hotspotVisiblilityDefault }
     })
   }
 
@@ -168,6 +171,7 @@ decorate(Store, {
   toggleHotspotsOn: action,
   toggleHotspotsOff: action,
   modelViewer: observable,
+  hotspotVisiblilityDefault: observable,
 
   editing: observable,
   saving: observable,

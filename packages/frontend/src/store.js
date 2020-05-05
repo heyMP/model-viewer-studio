@@ -3,8 +3,9 @@ import {
   decorate,
   computed,
   action,
-  autorun
-} from "../web_modules/mobx.js";
+  autorun,
+  toJS
+} from "mobx";
 
 const generateUuid = () => {
   return "xxxxxxxx".replace(/[xy]/g, function(c) {
@@ -169,7 +170,10 @@ decorate(Store, {
   // complete: computed
 });
 
-export const store = new Store();
+const store = new Store();
+export {
+  store
+}
 
 autorun(() => {
   if (

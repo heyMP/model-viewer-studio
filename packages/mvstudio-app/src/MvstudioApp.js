@@ -4,9 +4,6 @@ import { store } from "./lib/store.js"
 import "@vaadin/vaadin-app-layout/vaadin-app-layout.js";
 import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle.js";
 import "./MvstudioPannel.js";
-import "./mvs-preview.js"
-import "./mvs-toolbar.js"
-import "./mvs-panel.js"
 
 export class MvstudioApp extends LitElement {
   static get properties() {
@@ -73,6 +70,7 @@ export class MvstudioApp extends LitElement {
           <slot></slot>
         </div>
       </div>
+
     </vaadin-app-layout>
     `;
   }
