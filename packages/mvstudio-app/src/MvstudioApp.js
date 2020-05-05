@@ -4,6 +4,7 @@ import { store } from "./lib/store.js"
 import "@vaadin/vaadin-app-layout/vaadin-app-layout.js";
 import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle.js";
 import "./MvstudioPannel.js";
+import "./mvs-preview.js";
 
 export class MvstudioApp extends LitElement {
   static get properties() {
@@ -45,6 +46,11 @@ export class MvstudioApp extends LitElement {
       #title {
         font-size: 16px;
       }
+
+      mvs-preview {
+        height: 100vh;
+        width: 100%;
+      }
     `;
   }
 
@@ -67,7 +73,9 @@ export class MvstudioApp extends LitElement {
 
       <div class="content">
         <div id="slot">
-          <slot></slot>
+          <mvs-preview height="100vh" width="100%">
+            <slot></slot>
+          </mvs-preview>
         </div>
       </div>
 

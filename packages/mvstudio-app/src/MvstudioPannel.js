@@ -60,6 +60,10 @@ export class MvstudioPannel extends MobxLitElement {
         `,
       )}
       </vaadin-list-box>
+      ${!store.editing ? html`` : html``}
+      ${store.editing ? html`
+        <vaadin-button @click=${e => store.save()}>Save Hotspots</vaadin-button>
+      ` : html``}
     `;
   }
 

@@ -195,6 +195,10 @@ export const store = new Store()
 window.store = store;
 
 autorun(() => {
+
+  console.table({ store: toJS(store) });
+  console.log({ temporaryHotspot: toJS(store.temporaryHotspot) })
+
   store.hotspots.forEach(hotspot => {
     hotspot.target.hidden = hotspot.hidden;
   });

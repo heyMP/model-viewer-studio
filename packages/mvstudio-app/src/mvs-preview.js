@@ -3,6 +3,7 @@ import { LitElement, html, css } from "lit-element/lit-element.js";
 import { MobxLitElement } from "@adobe/lit-mobx/lit-mobx.js";
 import "./mvs-keyboard-shortcuts.js";
 import { store } from "./lib/store.js";
+import { findAllDeep } from "./lib/util.js";
 
 class MVSPreview extends MobxLitElement {
 
@@ -32,19 +33,15 @@ class MVSPreview extends MobxLitElement {
   }
 
   firstUpdated() {
-    const slot = this.shadowRoot.querySelector("slot");
-    slot.addEventListener("slotchange", e => {
-      let nodes = slot.assignedNodes();
-      for (const node of nodes) {
-        if (node.nodeName === "MODEL-VIEWER") {
-          store.modelViewer = node;
-          store.modelViewer.addEventListener("click", this.__handleClick.bind(this));
-          store.modelViewer.addEventListener("focus", this.__focusHotspot.bind(this), true);
-          store.modelViewer.addEventListener("keydown", this.__keydown.bind(this));
-          store.modelViewer.addEventListener("keyup", this.__keyup.bind(this));
-        }
-      }
-    });
+    const modelViewer = findAllDeep(this.shadowRoot.querySelector('slot'), `model-viewer`, 1);
+    console.log('modelViewer:', modelViewer)
+    if (modelViewer) {
+      store.modelViewer = modelViewer;
+      store.modelViewer.addEventListener("click", this.__handleClick.bind(this));
+      store.modelViewer.addEventListener("focus", this.__focusHotspot.bind(this), true);
+      store.modelViewer.addEventListener("keydown", this.__keydown.bind(this));
+      store.modelViewer.addEventListener("keyup", this.__keyup.bind(this));
+    }
   }
 
   __handleClick(event) {
@@ -134,6 +131,7 @@ class MVSPreview extends MobxLitElement {
     return html`
       <x-keyboard-shortcuts></x-keyboard-shortcuts>
       <slot></slot>
+      ${store.editing ? html`<span style="position:relative;z-index:9999;">Editing</span>` : html``}
     `;
   }
 }
