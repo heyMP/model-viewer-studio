@@ -33,10 +33,11 @@ class MVSPreview extends MobxLitElement {
   }
 
   firstUpdated() {
-    const modelViewer = findAllDeep(this.shadowRoot.querySelector('slot'), `model-viewer`, 1);
-    console.log('modelViewer:', modelViewer)
-    if (modelViewer) {
-      store.modelViewer = modelViewer;
+    // find all model viewer tags
+    const modelViewers = findAllDeep(this.shadowRoot.querySelector('slot'), `model-viewer`, 1);
+    if (modelViewers) {
+      // store the model viewer and add editable state event handlers
+      store.modelViewer = modelViewers[0];
       store.modelViewer.addEventListener("click", this.__handleClick.bind(this));
       store.modelViewer.addEventListener("focus", this.__focusHotspot.bind(this), true);
       store.modelViewer.addEventListener("keydown", this.__keydown.bind(this));

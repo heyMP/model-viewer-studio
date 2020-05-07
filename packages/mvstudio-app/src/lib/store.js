@@ -46,14 +46,15 @@ class Store {
     this.temporaryHotspot = null;
     this.hotspotEditing = false;
     this.hotspotVisiblilityDefault = false;
+    this.endpoint = `localhost:3000`;
+    this.location = null;
     this.connect();
   }
 
   connect() {
-    this.connected = true;
-    // fetch("/ping").then(res => {
-    //   this.connected = true;
-    // });
+    fetch(`//${this.endpoint}/ping`).then(res => {
+      this.connected = true;
+    });
   }
 
   startEditing() {
@@ -69,12 +70,19 @@ class Store {
     this.saving = true;
     // take snapshot of entire model and save it.
     const snapshot = this.modelViewer.outerHTML;
-    fetch("/save", {
+    let queryParams = []
+    if (this.location) {
+      queryParams = [...queryParams, `location=${this.location}`]
+    }
+    fetch(`//${this.endpoint}/save?${queryParams.join('&')}`, {
       method: "POST",
       body: snapshot
     }).then(res => {
+      console.log('res:', res)
       this.editing = false;
       this.saving = false;
+    }).catch(res => {
+    console.log('catch:', res)
     });
   }
 
@@ -172,6 +180,7 @@ decorate(Store, {
   toggleHotspotsOff: action,
   modelViewer: observable,
   hotspotVisiblilityDefault: observable,
+  location: observable,
 
   editing: observable,
   saving: observable,

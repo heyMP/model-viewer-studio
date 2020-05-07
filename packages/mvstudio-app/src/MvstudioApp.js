@@ -9,13 +9,19 @@ import "./mvs-preview.js";
 export class MvstudioApp extends LitElement {
   static get properties() {
     return {
+      /**
+       * Location of the active model on the file system.
+       * This is necessary when running in headless mode.
+       */
+      location: { type: String },
       title: { type: String }
     }
   }
 
   constructor() {
     super();
-    this.title = null
+    this.title = null;
+    this.location = null;
   }
 
   static get styles() {
@@ -58,6 +64,14 @@ export class MvstudioApp extends LitElement {
     // gather the hotspots
     const hotspots = findAllDeep(this.shadowRoot.querySelector('slot'), `[slot*="hotspot"]`, 1);
     store.storeRawHotspots(hotspots);
+  }
+
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      if (propName === "location") {
+        store.location = this.location;
+      }
+    });
   }
 
   render() {

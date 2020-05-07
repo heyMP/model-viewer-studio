@@ -16,10 +16,14 @@ program.parse(process.argv);
 
 if (program.headless) {
   console.log(chalk.green.bold("Running in headless mode."));
+  if (typeof target === 'undefined') {
+    console.log(chalk.red.bold("You need to specify a directory."));
+    process.exit(1);
+  }
 }
 else if (typeof target === 'undefined') {
   console.log(chalk.red.bold("You need to specify an HTML file containing your model."));
   process.exit(1);
 }
 
-server({ target, port: program.port });
+server({ target, port: program.port, opts: program });
