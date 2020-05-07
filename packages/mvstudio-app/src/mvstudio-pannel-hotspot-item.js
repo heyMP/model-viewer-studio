@@ -27,14 +27,14 @@ export class MvstudioPannelHotspotItem extends MobxLitElement {
     if (store.editing) {
       if (this.hotspot.target.id === store.temporaryHotspot.id) {
         return html`
-            <vaadin-button id="edit" @click=${this.__saveHotspot}>Stop</vaadin-button>
+            <vaadin-button id="edit" theme="tertiary" @click=${this.__saveHotspot}>Stop</vaadin-button>
           `
       }
       return html``
     }
     else {
         return html`
-          <vaadin-button id="edit" @click=${this.__editHotspot}>Edit</vaadin-button>
+          <vaadin-button id="edit" theme="tertiary" @click=${this.__editHotspot}>Edit</vaadin-button>
         `
     }
   }

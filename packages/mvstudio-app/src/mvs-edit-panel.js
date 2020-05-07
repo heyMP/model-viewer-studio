@@ -26,7 +26,6 @@ class MVSEditPanel extends MobxLitElement {
   render() {
     const editing = store.editing && store.temporaryHotspot !== null;
     const cameraTarget = store.modelViewer.getAttribute("camera-target");
-    console.log(store.modelViewer.attributes);
     return html`
       ${store.editing ? html`
         <div class="input-field">
@@ -81,14 +80,11 @@ class MVSEditPanel extends MobxLitElement {
             </div>
           `
         : html`
-          <mvs-edit-panel-add-hotspot-block></mvs-edit-panel-add-hotspot-block>
         `}
 
       ${editing ? html`
         <button .disabled=${!editing} @click=${() => store.deleteHotspot()}>Delete</button>
       ` : ''}
-      <button .disabled=${!editing} @click=${() => store.save()}>Save</button>
-      <button @click=${() => store.stopEditing()}>Cancel</button>
     `;
   }
 }

@@ -24,7 +24,8 @@
     "lit-element": "^2.2.1",
     "mobx": "^5.15.4",
     "@adobe/lit-mobx": "^0.0.3",
-    "@vaadin/vaadin": "^15.0.4"
+    "@vaadin/vaadin": "^15.0.4",
+    "@lrnwebcomponents/a11y-collapse": "^2.6.8"
   },
   "devDependencies": {
     "es-dev-server": "^1.23.0",

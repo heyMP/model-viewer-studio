@@ -6,8 +6,10 @@ import { toJS } from 'mobx';
 import "@vaadin/vaadin-list-box/vaadin-list-box.js";
 import "@vaadin/vaadin-button/vaadin-button.js";
 import "@vaadin/vaadin-item/vaadin-item.js";
-import "./mvs-preview.js"
-import "./mvstudio-pannel-hotspot-item.js"
+import "./mvs-preview.js";
+import "./mvstudio-pannel-hotspot-item.js";
+import "./mvs-edit-panel.js";
+import "./mvs-camera-target-edit.js";
 
 export class MvstudioPannel extends MobxLitElement {
   static get styles() {
@@ -43,6 +45,31 @@ export class MvstudioPannel extends MobxLitElement {
     `;
   }
 
+  renderHotspotListItems() {
+    const renderItem = (hotspot) => {
+      if (store.editing) {
+        if (hotspot.target.id === store.temporaryHotspot.id) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      else {
+        return true;
+      }
+    }
+    return store.hotspots.map(
+        hotspot => html`
+          ${renderItem(hotspot) ? html`
+            <vaadin-item>
+              <mvstudio-pannel-hotspot-item .hotspot=${hotspot}></mvstudio-pannel-hotspot-item>
+            </vaadin-item>
+          `: html``}
+        `,
+      )
+  }
+
   render() {
     // get a list of the selected mong
     const selected = `[${store.hotspots.map((i, index) => (i.hidden) ? null : index).filter(i => (i !== null)).join(',')}]`;
@@ -54,11 +81,8 @@ export class MvstudioPannel extends MobxLitElement {
           <vaadin-button @click=${e => store.toggleHotspotsOff()}>Toggle All Off</vaadin-button>
         </div>
         <hr>
-      ${store.hotspots.map(
-        hotspot => html`
-          <vaadin-item><mvstudio-pannel-hotspot-item .hotspot=${hotspot}></mvstudio-pannel-hotspot-item></vaadin-item>
-        `,
-      )}
+        ${this.renderHotspotListItems()}
+        <mvs-edit-panel></mvs-edit-panel>
       </vaadin-list-box>
       ${!store.editing ? html`` : html``}
       ${store.editing ? html`
