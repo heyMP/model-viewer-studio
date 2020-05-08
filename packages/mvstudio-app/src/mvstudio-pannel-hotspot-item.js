@@ -1,8 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import "@vaadin/vaadin-button/vaadin-button.js";
 import "@vaadin/vaadin-item/vaadin-item.js";
-import { store } from "./lib/store.js"
-import { toJS } from 'mobx';
+import { store, STATES } from "./lib/store.js"
 import { MobxLitElement } from '@adobe/lit-mobx';
 
 export class MvstudioPannelHotspotItem extends MobxLitElement {
@@ -16,6 +15,11 @@ export class MvstudioPannelHotspotItem extends MobxLitElement {
       :host {
         display: block;
       }
+
+      #delete {
+        color: #df2525;
+        font-size: .8em;
+      }
     `;
   }
   constructor() {
@@ -23,19 +27,14 @@ export class MvstudioPannelHotspotItem extends MobxLitElement {
     this.hotspot = null;
   }
 
-  renderEditButton() {
-    if (store.editing) {
-      if (this.hotspot.target.id === store.temporaryHotspot.id) {
-        return html`
-            <vaadin-button id="edit" theme="tertiary" @click=${this.__saveHotspot}>Stop</vaadin-button>
-          `
-      }
-      return html``
+  renderDeleteButton() {
+    if (store.state === STATES.EDIT) {
+      return html`
+        <vaadin-button id="delete" theme="tertiary" @click=${this.__delete}>delete</vaadin-button>
+      `;
     }
     else {
-        return html`
-          <vaadin-button id="edit" theme="tertiary" @click=${this.__editHotspot}>Edit</vaadin-button>
-        `
+      return '';
     }
   }
 
@@ -45,7 +44,7 @@ export class MvstudioPannelHotspotItem extends MobxLitElement {
       const hotspot = this.hotspot;
       return html`
         ${hotspot.target.innerText}
-        ${this.renderEditButton()}
+        ${this.renderDeleteButton()}
       `;
     }
     else {
@@ -53,11 +52,11 @@ export class MvstudioPannelHotspotItem extends MobxLitElement {
     }
   }
 
-  __saveHotspot(e) {
+  __delete(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    store.saveTemporaryHotspot();
+    store.deleteHotspot(this.hotspot);
     return false;
   }
 

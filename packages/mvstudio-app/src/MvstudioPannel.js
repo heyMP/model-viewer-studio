@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { classMap } from 'lit-html/directives/class-map.js';
-import { store } from './lib/store.js';
+import { store, STATES } from './lib/store.js';
 import { toJS } from 'mobx';
 import "@vaadin/vaadin-list-box/vaadin-list-box.js";
 import "@vaadin/vaadin-button/vaadin-button.js";
@@ -47,7 +47,7 @@ export class MvstudioPannel extends MobxLitElement {
 
   renderHotspotListItems() {
     const renderItem = (hotspot) => {
-      if (store.editing) {
+      if (store.editing && hotspot.target && store.temporaryHotspot) {
         if (hotspot.target.id === store.temporaryHotspot.id) {
           return true;
         }
@@ -84,10 +84,13 @@ export class MvstudioPannel extends MobxLitElement {
         ${this.renderHotspotListItems()}
         <mvs-edit-panel></mvs-edit-panel>
       </vaadin-list-box>
-      ${!store.editing ? html`` : html``}
-      ${store.editing ? html`
-        <vaadin-button @click=${e => store.save()}>Save Hotspots</vaadin-button>
-      ` : html``}
+      ${store.state === STATES.INITIAL ? html`
+        <vaadin-button @click=${e => store.startEditing() }>Edit</vaadin-button>
+      ` : html` `}
+      ${store.state === STATES.EDIT ? html`
+        <vaadin-button @click=${e => store.save()}>Save</vaadin-button>
+        <vaadin-button @click=${e => store.cancel()}>Cancel</vaadin-button>
+      ` : html` `}
     `;
   }
 
