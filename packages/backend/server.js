@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const prettier = require("prettier");
 const cors = require("cors");
 
 module.exports = ({ target, opts = {}, port = 3000 }) => {
@@ -70,7 +71,11 @@ module.exports = ({ target, opts = {}, port = 3000 }) => {
       const file = fs.readFileSync(fileLocation);
       const $ = cheerio.load(file, { normalizeWhitespace: false });
       $("model-viewer").replaceWith(req.body);
-      const newFile = $.html();
+      let newFile = $('body').html();
+      // if prettier is turned on then format it.
+      if (opts.format) {
+        newFile = prettier.format(newFile, { semi: false, parser: "babel" });
+      }
       fs.writeFileSync(fileLocation, newFile, "utf8");
       res.send("ok");
     } catch (error) {

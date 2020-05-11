@@ -14,7 +14,8 @@ export class MvstudioApp extends LitElement {
        * This is necessary when running in headless mode.
        */
       location: { type: String },
-      title: { type: String }
+      title: { type: String },
+      endpoint: { type: String }
     }
   }
 
@@ -22,6 +23,7 @@ export class MvstudioApp extends LitElement {
     super();
     this.title = null;
     this.location = null;
+    this.endpoint = null;
   }
 
   static get styles() {
@@ -70,6 +72,12 @@ export class MvstudioApp extends LitElement {
     changedProperties.forEach((oldValue, propName) => {
       if (propName === "location") {
         store.location = this.location;
+      }
+      if (propName === "endpoint") {
+        // if an endpoint is specified
+        if (this.endpoint) {
+          store.endpoint = this.endpoint;
+        }
       }
     });
   }

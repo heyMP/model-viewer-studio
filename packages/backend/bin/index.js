@@ -10,7 +10,8 @@ program
     target = _target
   })
   .option('-p, --port <number>', 'specify port. defaults to 3000')
-  .option('-hx, --headless', 'run just the server without a frontend. Ignores target.');
+  .option('-hx, --headless', 'run just the server without a frontend. Ignores target.')
+  .option('-f, --format', 'format the html with prettier');
 
 program.parse(process.argv);
 
