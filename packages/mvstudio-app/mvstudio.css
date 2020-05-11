@@ -1,0 +1,45 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+mvstudio-app {
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+
+model-viewer {
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(to top, #dfddcf 0%, #e2ebf0 100%);
+}
+
+button {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button[hidden] {
+  display: none;
+}
+
+#annotation {
+  background-color: white;
+  position: absolute;
+  transform: translate(50%, -50%);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  opacity: 0;
+}
+
+[data-visible] #annotation {
+  opacity: 1;
+}

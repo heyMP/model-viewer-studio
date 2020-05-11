@@ -3,80 +3,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-    mvstudio-app {
-      display: block;
-      height: 100vh;
-      width: 100%;
-    }
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(to top, #dfddcf 0%, #e2ebf0 100%);
-    }
-
-    button {
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      border: none;
-      background-color: white;
-      box-sizing: border-box;
-      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1),
-        -2px -2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    button[hidden] {
-      display: none;
-    }
-
-    #annotation {
-      background-color: white;
-      position: absolute;
-      transform: translate(50%, -50%);
-      border-radius: 10px;
-      box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2),
-        -2px -2px 5px rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      opacity: 0;
-    }
-
-    [data-visible] #annotation {
-      opacity: 1;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="../mvstudio.css">
 </head>
 
 <body>
-
-  <mvstudio-app location="index.html">
-    <model-viewer src="assets/Fibula.gltf" auto-rotate camera-controls camera-target="27.233384018077125m -24.22188949479331m -58.947377485638185m">
-      
-      
-      <button slot="hotspot-233r" data-position="-0.06402860445643878m 0.08116750414538312m 0.12159664616201027m" data-normal="-0.6604893606809414m 0.019042503405450033m 0.7505938898574481m" data-visibility-attribute="visible" id="hotspot-233r" data-visible>
-        <div id="annotation">Center Lens</div>
-      </button>
-    
+  <mvstudio-app location="demo/index.html">
+    <model-viewer src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/FlightHelmet/glTF/FlightHelmet.gltf" auto-rotate camera-controls camera-target="0.004871631419241421m 0.03908853822121202m 0.19947707653045657m">
+      <button slot="hotspot-108f45a1" data-position="0.06137778104148851m 0.5657253526327579m 0.1351420019795149m" data-normal="0.5480149444457728m -0.0029641515933924332m 0.8364632893734356m" data-visibility-attribute="visible" id="hotspot-4df25dca" data-visible>
+    <div id="annotation">Goggles</div></button>
       
       
       
+      <button slot="hotspot-b58f7740" data-position="0.013269835937988701m 0.25395856978012765m 0.18305825306588666m" data-normal="-0.0477477922235769m -0.03818282087283773m 0.9981293606181348m" data-visibility-attribute="visible" id="hotspot-6ecdf1a6" data-visible>
+    <div id="annotation">hose</div></button>
       
-      <button slot="hotspot-12a623b5" data-position="-24.832287546009127m 28.57018081849488m 31.461027209800164m" data-normal="-0.8804233878257242m -0.2433390600956726m 0.406989877025497m" data-visibility-attribute="visible" id="hotspot-12a623b5" data-visible>
-    <div id="annotation">Left Goggle Lens</div></button>
-      <button slot="hotspot-38458c9c" data-position="63.64223924659619m -91.08723735998217m -147.12645982487732m" data-normal="0.5525292172543252m 0.7976053361162209m 0.24194460498067089m" data-visibility-attribute="visible" id="hotspot-36b42f2f" data-visible>
-    <div id="annotation">Left Lens</div></button>
+      <button slot="hotspot-c1b1fb3a" data-position="0.09772002965757857m 0.6193136502706188m 0.04316246945012495m" data-normal="0.9152550765166914m 0.21642952155532205m 0.33980348307479097m" data-visibility-attribute="visible" id="hotspot-47c75584">
+    <div id="annotation">logo</div></button>
       
-      </model-viewer>
+      <button slot="hotspot-72423002" data-position="0.05280628164706815m 0.04337561655831587m 0.19945605964632976m" data-normal="0.001534458464348275m 0m 0.9999988227179174m" data-visibility-attribute="visible" id="hotspot-38320c43" data-visible>
+    <div id="annotation">label</div></button></model-viewer>
   </mvstudio-app>
-
   <script type="module" src="https://unpkg.com/@google/model-viewer/lib/model-viewer.js?module"></script>
   <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
   <script type="module" src="../mvstudio-app.js"></script>
-
-
 </body></html>
