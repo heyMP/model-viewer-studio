@@ -1,6 +1,6 @@
 {
   "name": "mvstudio-app",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Web Component to display model-viewer tags.",
   "author": "heyMP",
   "license": "Apache-2.0",
