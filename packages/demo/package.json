@@ -16,5 +16,6 @@
     "es-dev-server": "^1.46.2",
     "rimraf": "^2.6.3",
     "rollup": "^2.3.4"
-  }
+  },
+  "gitHead": "1513fe8ec0c2958ac4edaaf55321f4b2981d8fdc"
 }

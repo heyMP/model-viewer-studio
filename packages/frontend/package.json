@@ -15,5 +15,6 @@
   },
   "scripts": {
     "dev": "http-server ."
-  }
+  },
+  "gitHead": "1513fe8ec0c2958ac4edaaf55321f4b2981d8fdc"
 }

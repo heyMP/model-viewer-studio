@@ -20,5 +20,5 @@
   "bin": {
     "mvstudio": "./bin/index.js"
   },
-  "gitHead": "824c7304391531da37a71e203a2b01c3b6822a60"
+  "gitHead": "1513fe8ec0c2958ac4edaaf55321f4b2981d8fdc"
 }
