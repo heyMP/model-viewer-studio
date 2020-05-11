@@ -1,6 +1,6 @@
 {
   "name": "mvs-desktop",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "main.js",
   "description": "asdf",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "dependencies": {
     "electron-log": "^4.0.7",
     "get-port": "^5.1.1",
-    "model-viewer-studio": "^0.0.10"
+    "model-viewer-studio": "^0.0.11"
   },
   "devDependencies": {
     "electron": "^8.0.2",
