@@ -1,6 +1,6 @@
 {
   "name": "@mvstudio/demo",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "Apache-2.0",
   "scripts": {
     "start": "es-dev-server --app-index packages/demo/index.html --root-dir ../../ --node-resolve --watch --open",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@google/model-viewer": "^0.9.0",
-    "mvstudio-app": "^0.0.13"
+    "mvstudio-app": "^0.0.14"
   },
   "devDependencies": {
     "@open-wc/building-rollup": "^1.0.0",
