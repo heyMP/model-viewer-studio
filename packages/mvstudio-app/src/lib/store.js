@@ -12,34 +12,30 @@ export const STATES = {
   EDIT: 'edit'
 }
 
-const generateUuid = () => {
-  return "xxxxxxxx".replace(/[xy]/g, function(c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
+const generateUuid = () => "xxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+      const v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
-};
 
 const deconstructHotspotElement = node => {
   const id = node.getAttribute("slot");
-  const position = node.dataset.position;
-  const normal = node.dataset.normal;
+  const {position} = node.dataset;
+  const {normal} = node.dataset;
   const target = node;
-  let annotationNode = node.querySelector("*");
+  const annotationNode = node.querySelector("*");
   const annotation = annotationNode ? annotationNode.innerText : "";
   return { id, position, normal, target, annotation };
 };
 
-const newHostspot = () => {
-  return {
+const newHostspot = () => ({
     id: `hotspot-${generateUuid()}`,
     position: "",
     normal: "",
     annotation: "",
     target: null,
     new: true
-  };
-};
+  });
 
 class Store {
   constructor() {
@@ -108,7 +104,7 @@ class Store {
   }
 
   deleteHotspot(hotspot = null) {
-    const _hotspot = hotspot ? hotspot : this.temporaryHotspot;
+    const _hotspot = hotspot || this.temporaryHotspot;
     console.log('_hotspot:', toJS(_hotspot))
     const confirmed = confirm(
       `Are you sure you want to delete ${_hotspot.target.id}?`
@@ -131,7 +127,7 @@ class Store {
       store.temporaryHotspot = newHostspot();
     }
     const slotName = `hotspot-${generateUuid()}`;
-    let hotspot = `
+    const hotspot = `
       <button
         slot="${slotName}"
         data-position="${position.position.toString()}"
@@ -163,9 +159,7 @@ class Store {
   }
 
   storeRawHotspots(hotspots) {
-    this.hotspots = hotspots.map(i => {
-      return { target: i, hidden: this.hotspotVisiblilityDefault }
-    })
+    this.hotspots = hotspots.map(i => ({ target: i, hidden: this.hotspotVisiblilityDefault }))
   }
 
   toggleHotspotsOn() {
@@ -247,7 +241,7 @@ autorun(() => {
         "*"
       );
       if (!currentAnnotation) {
-        let element = document.createElement("div");
+        const element = document.createElement("div");
         element.id = "annotation";
         element.innerHTML = store.temporaryHotspot.annotation;
         store.temporaryHotspot.target.appendChild(element);
@@ -258,11 +252,11 @@ autorun(() => {
   }
   if (store.modelViewer) {
     store.modelViewer
-    var observer = new MutationObserver(function (mutations) {
+    const observer = new MutationObserver(((mutations) => {
       // Whether you iterate over mutations..
-      mutations.forEach(function (mutation) {
+      mutations.forEach((mutation) => {
       });
-    });
+    }));
     observer.observe(store.modelViewer, {
       attributes: true,
       childList: false,
