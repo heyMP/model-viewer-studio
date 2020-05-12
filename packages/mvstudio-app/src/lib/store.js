@@ -80,7 +80,7 @@ class Store {
     if (this.location) {
       queryParams = [...queryParams, `location=${this.location}`]
     }
-    fetch(`//${this.endpoint}/save?${queryParams.join('&')}`, {
+    fetch(`${this.endpoint}/save?${queryParams.join('&')}`, {
       method: "POST",
       body: snapshot
     }).then(res => {
