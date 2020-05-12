@@ -57,7 +57,7 @@ class Store {
   }
 
   connect() {
-    fetch(`//${this.endpoint}/ping`).then(res => {
+    fetch(`${this.endpoint}/ping`).then(res => {
       this.connected = true;
     });
   }
