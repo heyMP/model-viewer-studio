@@ -5,8 +5,7 @@
   "license": "Apache-2.0",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "packages/*"
   ],
   "devDependencies": {
     "lerna": "^3.20.2"
