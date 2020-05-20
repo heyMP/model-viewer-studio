@@ -3,6 +3,7 @@ import { LitElement, html, css } from "lit-element/lit-element.js";
 import { MobxLitElement } from "@adobe/lit-mobx/lit-mobx.js";
 import { store } from "./lib/store.js";
 import "./mvs-edit-panel-add-hotspot-block.js"
+import "./mvs-annotation-field.js"
 
 class MVSEditPanel extends MobxLitElement {
   static get styles() {
@@ -70,13 +71,7 @@ class MVSEditPanel extends MobxLitElement {
 
             <div class="input-field">
               <label for="annotation">annotation:</label>
-              <input
-                name="annotation"
-                .value=${store.temporaryHotspot.annotation}
-                @input=${e => {
-                  store.temporaryHotspot.annotation = e.target.value;
-                }}
-              />
+              <mvs-annotation-field><mvs-annotation-field>
             </div>
           `
         : html`

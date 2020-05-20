@@ -84,7 +84,7 @@ export class MvstudioPannel extends MobxLitElement {
         ${this.renderHotspotListItems()}
         <mvs-edit-panel></mvs-edit-panel>
       </vaadin-list-box>
-      ${store.state === STATES.INITIAL ? html`
+    ${store.state === STATES.CONNECTED ? html`
         <vaadin-button @click=${e => store.startEditing() }>Edit</vaadin-button>
       ` : html` `}
       ${store.state === STATES.EDIT ? html`

@@ -9,6 +9,7 @@ import {
 
 export const STATES = {
   INITIAL: 'initial',
+  CONNECTED: 'connected',
   EDIT: 'edit'
 }
 
@@ -47,13 +48,14 @@ class Store {
     this.temporaryHotspot = null;
     this.hotspotEditing = false;
     this.hotspotVisiblilityDefault = false;
-    this.endpoint = `localhost:3000`;
+    this.endpoint = `http://localhost:3000`;
     this.location = null;
     this.connect();
   }
 
   connect() {
     fetch(`${this.endpoint}/ping`).then(res => {
+      console.log('res:', res)
       this.connected = true;
     });
   }
@@ -180,6 +182,9 @@ class Store {
     console.log(this.editing)
     if (this.editing) {
       return STATES.EDIT;
+    }
+    if (this.connected) {
+      return STATES.CONNECTED;
     }
     return STATES.INITIAL;
   }
