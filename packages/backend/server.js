@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const prettier = require("prettier");
 const cors = require("cors");
+const frontmatter = require('@github-docs/frontmatter');
 
 module.exports = ({ target, opts = {}, port = 3000 }) => {
   const TARGET = target;
@@ -30,9 +31,9 @@ module.exports = ({ target, opts = {}, port = 3000 }) => {
     }
     console.log("Setting the following as static assets: ", staticAssetsIdentified);
 
-    app.use("/src", express.static(path.join(__dirname, "./templates/frontend/src")));
-    app.use("/web_modules", express.static(path.join(__dirname, "./templates/frontend/web_modules")));
-
+    app.use("/src", express.static(path.join(__dirname, "../frontend/src")));
+    app.use("/web_modules", express.static(path.join(__dirname, "../frontend/web_modules")));
+    
     app.get("/", (req, res) => {
       const file = fs.readFileSync(path.join(TARGET), "utf8");
       const $ = cheerio.load(file, { normalizeWhitespace: false });
@@ -69,12 +70,16 @@ module.exports = ({ target, opts = {}, port = 3000 }) => {
       }
       // load the existing file.
       const file = fs.readFileSync(fileLocation);
-      const $ = cheerio.load(file, { normalizeWhitespace: false });
+      // pull off the front matter
+      const fMatter = frontmatter(file);
+      // load the content portion of the file
+      const $ = cheerio.load(fMatter.content, { normalizeWhitespace: false });
       $("model-viewer").replaceWith(req.body);
       let newFile = $('body').html();
       // if prettier is turned on then format it.
       if (opts.format) {
-        newFile = prettier.format(newFile, { semi: false, parser: "babel" });
+        const formattedContent = prettier.format(newFile, { semi: false, parser: "babel" })
+        newFile = frontmatter.stringify(formattedContent, fMatter.data);
       }
       fs.writeFileSync(fileLocation, newFile, "utf8");
       res.send("ok");
