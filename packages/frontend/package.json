@@ -8,7 +8,7 @@
     "@google/model-viewer": "^0.9.0",
     "lit-element": "^2.2.1",
     "mobx": "^5.15.4",
-    "three": "^0.113.2"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "http-server": "^0.12.1"
